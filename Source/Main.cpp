@@ -3,7 +3,7 @@
 #include "Windows_Fixed.h"
 
 
-LRESULT CALLBACK windowProcedure(HWND window, UINT message_id, WPARAM w_parameter, LPARAM l_parameter)
+LRESULT WINAPI windowProcedure(HWND window, UINT message_id, WPARAM w_parameter, LPARAM l_parameter)
 {
 	switch (message_id)
 	{
@@ -32,7 +32,7 @@ LRESULT CALLBACK windowProcedure(HWND window, UINT message_id, WPARAM w_paramete
 }
 
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	const LPCSTR class_name = "DirectArkanoidX";
 
