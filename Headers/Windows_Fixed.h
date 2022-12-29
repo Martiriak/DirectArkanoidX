@@ -1,5 +1,5 @@
 // Alessandro Pegoraro - Graphics Programming
-// This file was taken from the Chili Direct3D Engine. <http://www.planetchili.net>	
+// This file was taken and modified from the Chili Direct3D Engine. <http://www.planetchili.net>	
 
 #pragma once
 

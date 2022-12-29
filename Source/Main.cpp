@@ -1,6 +1,7 @@
 // Alessandro Pegoraro - Graphics Programming
 
 #include "Windows_Fixed.h"
+#include "Window.h"
 
 
 LRESULT WINAPI windowProcedure(HWND window, UINT message_id, WPARAM w_parameter, LPARAM l_parameter)
@@ -34,42 +35,7 @@ LRESULT WINAPI windowProcedure(HWND window, UINT message_id, WPARAM w_parameter,
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	const LPCSTR class_name = "DirectArkanoidX";
-
-	// Register class //
-
-	WNDCLASSEX window_class = {0};
-	window_class.cbSize         = sizeof(window_class);
-	window_class.style          = CS_OWNDC;
-	window_class.lpfnWndProc    = windowProcedure;
-	window_class.cbClsExtra     = 0;
-	window_class.cbWndExtra     = 0;
-	window_class.hInstance      = hInstance;
-	window_class.hIcon          = nullptr;
-	window_class.hCursor        = nullptr;
-	window_class.hbrBackground  = nullptr;
-	window_class.lpszMenuName   = nullptr;
-	window_class.lpszClassName  = class_name;
-
-	RegisterClassEx(&window_class);
-
-	// Create window instance //
-
-	HWND handle_window = CreateWindowEx
-	(
-		0,
-		class_name,
-		"Arkanoid X",
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
-		200, 200,
-		640, 480,
-		nullptr,
-		nullptr,
-		hInstance,
-		nullptr
-	);
-
-	ShowWindow(handle_window, SW_SHOW);
+	Window window(800, 600, "Arkanoid X");
 
 	// Get messages //
 
