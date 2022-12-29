@@ -44,8 +44,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while ( (get_result = GetMessage(&message, nullptr, 0, 0)) > 0)
 	{
 		TranslateMessage(&message);
-
+		
 		DispatchMessage(&message);
+
+		if (window.keyboard.isKeyPressed('F'))
+		{
+			window.setWindowName("Paganni Gianni");
+		}
+
+		if (window.keyboard.isKeyPressed('G'))
+		{
+			window.setWindowName("Gianni Paganni");
+		}
 	}
 
 	return get_result == -1 ? -1 : message.wParam;

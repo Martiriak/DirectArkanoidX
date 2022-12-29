@@ -3,9 +3,11 @@
   <ItemGroup>
     <ClInclude Include="Headers\Windows_Fixed.h" />
     <ClInclude Include="Headers\Window.h" />
+    <ClInclude Include="Headers\Keyboard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClCompile Include="Source\Keyboard.cpp" />
   </ItemGroup>
 </Project>

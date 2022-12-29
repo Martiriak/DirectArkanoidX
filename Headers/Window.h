@@ -4,6 +4,7 @@
 #pragma once
 
 #include "Windows_Fixed.h"
+#include "Keyboard.h"
 
 
 class Window
@@ -31,11 +32,15 @@ class Window
 
 public:
 
+	Keyboard keyboard;
+
 	Window(int width, int height, LPCSTR name) noexcept;
 	~Window();
 
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+
+	void setWindowName(LPCSTR new_name);
 
 private:
 

@@ -79,6 +79,12 @@ Window::~Window()
 }
 
 
+void Window::setWindowName(LPCSTR new_name)
+{
+	SetWindowText(_h_window, new_name);
+}
+
+
 LRESULT WINAPI Window::handleMsgSetup(HWND h_window, UINT message_id, WPARAM w_parameter, LPARAM l_parameter) noexcept
 {
 	// Use create parameter passed in from CreateWindow() to store window class pointer at WinAPI side.
@@ -112,19 +118,14 @@ LRESULT Window::handleMsg(HWND h_window, UINT message_id, WPARAM w_parameter, LP
 {
 	switch (message_id)
 	{
-
+	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
-		if (w_parameter == 'F')
-		{
-			SetWindowText(h_window, "Gianni Paganni");
-		}
+		keyboard.setKeyPressed(static_cast<unsigned char>(w_parameter));
 		break;
 
+	case WM_SYSKEYUP:
 	case WM_KEYUP:
-		if (w_parameter == 'G')
-		{
-			SetWindowText(h_window, "Paganni Gianni");
-		}
+		keyboard.setKeyReleased(static_cast<unsigned char>(w_parameter));
 		break;
 		
 	case WM_CLOSE:
