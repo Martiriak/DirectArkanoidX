@@ -14,7 +14,7 @@ public:
 	Application() = delete;
 	Application(int window_width, int window_height, LPCSTR window_name);
 
-	void ProcessFrame(float delta_time);
+	void processFrame(float delta_time);
 
 private:
 	

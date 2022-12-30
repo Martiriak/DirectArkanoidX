@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		prev_frame = chrono_clock::now();
 		float seconds_elapsed = std::chrono::duration_cast<chrono_float>(elapsed_time).count();
 
-		app.ProcessFrame(seconds_elapsed);
+		app.processFrame(seconds_elapsed);
 	}
 
 	return message.wParam;

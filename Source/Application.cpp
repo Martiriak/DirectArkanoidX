@@ -8,7 +8,7 @@ Application::Application(int window_width, int window_height, LPCSTR window_name
 	: window(window_width, window_height, window_name) { }
 
 
-void Application::ProcessFrame(float delta_time)
+void Application::processFrame(float delta_time)
 {
 	if (window.keyboard.isKeyPressed(' '))
 	{
