@@ -1,18 +1,19 @@
 // Alessandro Pegoraro - Graphics Programming
 
 #include "Windows_Fixed.h"
-#include "Window.h"
+#include "Application.h"
 #include <chrono>
-#include <string>
+
+
+using chrono_clock = std::chrono::steady_clock;
+using chrono_float = std::chrono::duration<float, std::chrono::seconds::period>;
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	Window window(800, 600, "Arkanoid X");
+	Application app(800, 600, "Arkanoid X");
 
-	// Get messages //
-
-	auto prev_frame = std::chrono::steady_clock::now();
+	auto prev_frame = chrono_clock::now();
 
 	MSG message;
 	bool running = true;
@@ -29,14 +30,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			DispatchMessage(&message);
 		}
 
-		auto elapsed_time = std::chrono::steady_clock::now() - prev_frame;
-		prev_frame = std::chrono::steady_clock::now();
-		long long seconds_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(elapsed_time).count();
+		auto elapsed_time = chrono_clock::now() - prev_frame;
+		prev_frame = chrono_clock::now();
+		float seconds_elapsed = std::chrono::duration_cast<chrono_float>(elapsed_time).count();
 
-		if (window.keyboard.isKeyPressed(' '))
-		{
-			MessageBox(nullptr, std::to_string(seconds_elapsed).c_str(), "Delta Time", MB_OK);
-		}
+		app.ProcessFrame(seconds_elapsed);
 	}
 
 	return message.wParam;
