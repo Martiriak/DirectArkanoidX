@@ -118,6 +118,10 @@ LRESULT Window::handleMsg(HWND h_window, UINT message_id, WPARAM w_parameter, LP
 {
 	switch (message_id)
 	{
+	case WM_KILLFOCUS:
+		keyboard.clearKeysStates();
+		break;
+
 	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
 		keyboard.setKeyPressed(static_cast<unsigned char>(w_parameter));
