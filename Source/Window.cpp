@@ -71,6 +71,8 @@ Window::Window(int width, int height, LPCSTR name) noexcept
 	);
 
 	ShowWindow(_h_window, SW_SHOWDEFAULT);
+
+	_renderer = std::make_unique<Renderer>(_h_window);
 }
 
 Window::~Window()

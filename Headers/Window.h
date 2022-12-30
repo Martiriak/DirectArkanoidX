@@ -4,7 +4,9 @@
 #pragma once
 
 #include "Windows_Fixed.h"
+#include <memory>
 #include "Keyboard.h"
+#include "Renderer.h"
 
 
 class Window
@@ -40,6 +42,8 @@ public:
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
 
+	inline Renderer& getRenderer() { return *_renderer; }
+
 	void setWindowName(LPCSTR new_name);
 
 private:
@@ -47,6 +51,7 @@ private:
 	int _width;
 	int _height;
 	HWND _h_window;
+	std::unique_ptr<Renderer> _renderer;
 
 	/**
 	 * Used to initially setup the h_window to have a pointer to an instance of Window class,

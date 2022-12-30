@@ -14,4 +14,8 @@ void Application::processFrame(float delta_time)
 	{
 		MessageBox(nullptr, std::to_string(delta_time).c_str(), "Delta Time", MB_OK);
 	}
+
+	window.getRenderer().clearBuffer(0.2f, 0.6f, 0.2f);
+
+	window.getRenderer().present();
 }
