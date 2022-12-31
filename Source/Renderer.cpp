@@ -5,6 +5,8 @@
 #pragma comment(lib, "d3d11.lib")
 
 
+namespace wrl = Microsoft::WRL;
+
 Renderer::Renderer(HWND h_window)
 {
 	DXGI_SWAP_CHAIN_DESC sc_descriptor = { 0 };
@@ -42,19 +44,11 @@ Renderer::Renderer(HWND h_window)
 	);
 
 	// Get render_target_view through back buffer COM.
-	ID3D11Resource* back_buffer = nullptr;
-	_swap_chain->GetBuffer(0u, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&back_buffer));
-	_device->CreateRenderTargetView(back_buffer, nullptr, &_render_target_view);
-	back_buffer->Release();
+	wrl::ComPtr<ID3D11Resource> back_buffer = nullptr;
+	_swap_chain->GetBuffer(0u, __uuidof(ID3D11Resource), &back_buffer);
+	_device->CreateRenderTargetView(back_buffer.Get(), nullptr, &_render_target_view);
 }
 
-Renderer::~Renderer()
-{
-	if (_render_target_view != nullptr) _render_target_view->Release();
-	if (_swap_chain != nullptr) _swap_chain->Release();
-	if (_device_context != nullptr) _device_context->Release();
-	if (_device != nullptr) _device->Release();
-}
 
 void Renderer::present()
 {
@@ -66,5 +60,5 @@ void Renderer::clearBuffer(float red, float green, float blue)
 {
 	const float color[] = { red, green, blue, 1.f };
 
-	_device_context->ClearRenderTargetView(_render_target_view, color);
+	_device_context->ClearRenderTargetView(_render_target_view.Get(), color);
 }
