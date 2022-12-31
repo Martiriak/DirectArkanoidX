@@ -3,12 +3,47 @@
 #pragma once
 
 #include "Windows_Fixed.h"
+#include "ChiliException.h"
 #include <d3d11.h>
 #include <wrl.h>
 
 
 class Renderer
 {
+//// INNER CLASSES ////
+
+public:
+
+	class Exception : public ChiliException
+	{
+	public:
+
+		Exception(int line, const char* file, HRESULT h_result) noexcept;
+
+		HRESULT getErrorCode() const noexcept;
+		std::string getErrorString() const noexcept;
+		std::string getErrorDescription() const noexcept;
+
+		const char* what() const noexcept override;
+		const char* GetType() const noexcept override;
+
+	private:
+
+		HRESULT _h_result;
+	};
+
+	class DeviceRemovedException : public Exception
+	{
+		using Exception::Exception;
+
+	public:
+
+		const char* GetType() const noexcept override;
+	};
+
+
+//// MEMBERS ////
+
 public:
 
 	Renderer(HWND h_window);

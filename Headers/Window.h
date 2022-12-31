@@ -5,12 +5,37 @@
 
 #include "Windows_Fixed.h"
 #include <memory>
+#include "ChiliException.h"
 #include "Keyboard.h"
 #include "Renderer.h"
 
 
 class Window
 {
+//// INNER CLASSES ////
+public:
+
+	class Exception : public ChiliException
+	{
+	public:
+
+		Exception(int line, const char* file, HRESULT h_result) noexcept;
+
+		static std::string translateErrorCode(HRESULT h_result) noexcept;
+
+		HRESULT getErrorCode() const noexcept;
+		std::string getErrorString() const noexcept;
+
+		const char* what() const noexcept override;
+		virtual const char* GetType() const noexcept override;
+
+	private:
+
+		HRESULT _h_result;
+	};
+
+private:
+
 	// Singleton manages registration/cleanup of window class
 	class WindowClass
 	{
@@ -32,6 +57,7 @@ class Window
 		HINSTANCE _h_instance;
 	};
 
+//// MEMBERS ////
 public:
 
 	Keyboard keyboard;
@@ -66,3 +92,8 @@ private:
 
 	LRESULT handleMsg(HWND h_window, UINT message_id, WPARAM w_parameter, LPARAM l_parameter) noexcept;
 };
+
+
+// Error exception helper macro.
+#define MAKE_WINDOW_EXCEPTION(h_result) Window::Exception(__LINE__, __FILE__, h_result)
+#define RETRIEVE_LAST_WINDOW_EXCEPTION() Window::Exception(__LINE__, __FILE__, GetLastError())

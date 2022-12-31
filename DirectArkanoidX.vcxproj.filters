@@ -6,6 +6,8 @@
     <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\Application.h" />
     <ClInclude Include="Headers\Renderer.h" />
+    <ClInclude Include="Headers\ChiliException.h" />
+    <ClInclude Include="DxErr\dxerr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
@@ -13,9 +15,16 @@
     <ClCompile Include="Source\Keyboard.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\ChiliException.cpp" />
+    <ClCompile Include="DxErr\dxerr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />
     <FxCompile Include="Shaders\PixelShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DxErr\DXGetErrorDescription.inl" />
+    <None Include="DxErr\DXGetErrorString.inl" />
+    <None Include="DxErr\DXTrace.inl" />
   </ItemGroup>
 </Project>

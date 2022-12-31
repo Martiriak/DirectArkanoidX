@@ -2,6 +2,7 @@
 // This file was taken and modified from the Chili Direct3D Engine. <http://www.planetchili.net>	
 
 #include "Window.h"
+#include <sstream>
 
 
 ////// Window Class Stuff //////
@@ -145,4 +146,63 @@ LRESULT Window::handleMsg(HWND h_window, UINT message_id, WPARAM w_parameter, LP
 	}
 
 	return DefWindowProc(h_window, message_id, w_parameter, l_parameter);
+}
+
+
+
+////// Window Exception Stuff //////
+
+
+Window::Exception::Exception(int line, const char* file, HRESULT h_result) noexcept
+	:
+	ChiliException(line, file),
+	_h_result(h_result)
+{}
+
+const char* Window::Exception::what() const noexcept
+{
+	std::ostringstream oss;
+	oss << GetType() << std::endl
+		<< "[Error Code] " << getErrorCode() << std::endl
+		<< "[Description] " << getErrorString() << std::endl
+		<< GetOriginString();
+	whatBuffer = oss.str();
+	return whatBuffer.c_str();
+}
+
+const char* Window::Exception::GetType() const noexcept
+{
+	return "Chili Window Exception";
+}
+
+std::string Window::Exception::translateErrorCode(HRESULT hr) noexcept
+{
+	char* pMsgBuf = nullptr;
+	// windows will allocate memory for err string and make our pointer point to it
+	DWORD nMsgLen = FormatMessage(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |
+		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		reinterpret_cast<LPSTR>(&pMsgBuf), 0, nullptr
+	);
+	// 0 string length returned indicates a failure
+	if (nMsgLen == 0)
+	{
+		return "Unidentified error code";
+	}
+	// copy error string from windows-allocated buffer to std::string
+	std::string errorString = pMsgBuf;
+	// free windows buffer
+	LocalFree(pMsgBuf);
+	return errorString;
+}
+
+HRESULT Window::Exception::getErrorCode() const noexcept
+{
+	return _h_result;
+}
+
+std::string Window::Exception::getErrorString() const noexcept
+{
+	return translateErrorCode(_h_result);
 }
