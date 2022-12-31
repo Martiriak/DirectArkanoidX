@@ -14,4 +14,8 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\VertexShader.hlsl" />
+    <FxCompile Include="Shaders\PixelShader.hlsl" />
+  </ItemGroup>
 </Project>
