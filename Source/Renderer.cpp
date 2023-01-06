@@ -88,15 +88,18 @@ void Renderer::clearBuffer(float red, float green, float blue)
 
 void Renderer::tryStuff()
 {
+	using byte = unsigned char;
+	using uint16 = unsigned short;
+
 	HRESULT h_result;
 
-	struct Vertex { float x, y, r, g, b; };
+	struct Vertex { float x, y; byte r, g, b, a; };
 
 	const Vertex vertices[] =
 	{
-		{ 0.f, 0.5f, 1.f, 0.f, 0.f },
-		{ 0.5f, -0.5f, 0.f, 1.f, 0.f },
-		{ -0.5f, -0.5f, 0.f, 0.f, 1.f },
+		{ 0.f, 0.5f, 255u, 0u, 0u, 0u },
+		{ 0.5f, -0.5f, 0u, 255u, 0u, 0u },
+		{ -0.5f, -0.5f, 0u, 0u, 255u, 0u },
 	};
 
 	// SHADER SETTING
@@ -131,8 +134,8 @@ void Renderer::tryStuff()
 
 	THROW_IF_FAILED(_device->CreateBuffer(&vertex_descriptor, &vertex_buffer_subresource, &vertex_buffer));
 
-	const UINT stride = sizeof(Vertex);
-	const UINT offset = 0u;
+	constexpr UINT stride = sizeof(Vertex);
+	constexpr UINT offset = 0u;
 	_device_context->IASetVertexBuffers(0u, 1u, vertex_buffer.GetAddressOf(), &stride, &offset);
 
 	// INPUT LAYOUT
@@ -142,7 +145,7 @@ void Renderer::tryStuff()
 	const D3D11_INPUT_ELEMENT_DESC input_element_descriptors[] =
 	{
 		{ "POSITION", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, 0u, D3D11_INPUT_PER_VERTEX_DATA, 0u },
-		{ "COLOR", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 0u, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0u }
+		{ "COLOR", 0u, DXGI_FORMAT_R8G8B8A8_UNORM, 0u, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0u }
 	};
 
 	THROW_IF_FAILED(_device->CreateInputLayout
