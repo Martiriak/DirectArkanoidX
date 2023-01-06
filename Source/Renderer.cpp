@@ -97,9 +97,24 @@ void Renderer::tryStuff()
 
 	const Vertex vertices[] =
 	{
-		{ 0.f, 0.5f, 255u, 0u, 0u, 0u },
-		{ 0.5f, -0.5f, 0u, 255u, 0u, 0u },
-		{ -0.5f, -0.5f, 0u, 0u, 255u, 0u },
+		{ 0.f, 0.75f, 255u, 0u, 0u, 0u },
+		{ 0.25f, 0.25f, 0u, 255u, 0u, 0u },
+		{ 0.75f, 0.f, 0u, 0u, 255u, 0u },
+		{ 0.25f, -0.25f, 0u, 255u, 255u, 0u },
+		{ 0.f, -0.75f, 255u, 0u, 255u, 0u },
+		{ -0.25f, -0.25f, 255u, 255u, 0u, 0u },
+		{ -0.75f, 0.f, 255u, 255u, 255u, 0u },
+		{ -0.25f, 0.25f, 0u, 0u, 0u, 0u },
+	};
+
+	const uint16 indices[] =
+	{
+		7, 0, 1,
+		1, 2, 3,
+		3, 4, 5,
+		5, 6, 7,
+		7, 1, 5,
+		5, 1, 3
 	};
 
 	// SHADER SETTING
@@ -134,9 +149,28 @@ void Renderer::tryStuff()
 
 	THROW_IF_FAILED(_device->CreateBuffer(&vertex_descriptor, &vertex_buffer_subresource, &vertex_buffer));
 
-	constexpr UINT stride = sizeof(Vertex);
-	constexpr UINT offset = 0u;
-	_device_context->IASetVertexBuffers(0u, 1u, vertex_buffer.GetAddressOf(), &stride, &offset);
+	constexpr UINT vertex_stride = sizeof(Vertex);
+	constexpr UINT vertex_offset = 0u;
+	_device_context->IASetVertexBuffers(0u, 1u, vertex_buffer.GetAddressOf(), &vertex_stride, &vertex_offset);
+
+	// INDEX BUFFER
+
+	wrl::ComPtr<ID3D11Buffer> index_buffer;
+	D3D11_BUFFER_DESC index_descriptor = { 0 };
+	index_descriptor.BindFlags            = D3D11_BIND_INDEX_BUFFER;
+	index_descriptor.Usage                = D3D11_USAGE_DEFAULT;
+	index_descriptor.CPUAccessFlags       = 0u;
+	index_descriptor.MiscFlags            = 0u;
+	index_descriptor.ByteWidth            = sizeof(indices);
+	index_descriptor.StructureByteStride  = sizeof(uint16);
+
+	D3D11_SUBRESOURCE_DATA index_buffer_subresource = { 0 };
+	index_buffer_subresource.pSysMem = indices;
+
+	THROW_IF_FAILED(_device->CreateBuffer(&index_descriptor, &index_buffer_subresource, &index_buffer));
+
+	constexpr UINT index_offset = 0u;
+	_device_context->IASetIndexBuffer(index_buffer.Get(), DXGI_FORMAT_R16_UINT, index_offset);
 
 	// INPUT LAYOUT
 
@@ -178,7 +212,8 @@ void Renderer::tryStuff()
 
 	// DRAW!
 
-	_device_context->Draw((UINT) (sizeof(vertices) / sizeof(Vertex)), 0u);
+	//_device_context->Draw((UINT)(sizeof(vertices) / sizeof(Vertex)), 0u);
+	_device_context->DrawIndexed((UINT)(sizeof(indices) / sizeof(uint16)), 0u, 0u);
 }
 
 ////// Renderer Exception //////
