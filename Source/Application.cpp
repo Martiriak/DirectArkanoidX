@@ -49,5 +49,7 @@ void Application::processFrame(float delta_time)
 
 	window.getRenderer().clearBuffer(red, green, blue);
 
+	window.getRenderer().tryStuff();
+
 	window.getRenderer().present();
 }

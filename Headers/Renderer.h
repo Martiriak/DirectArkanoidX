@@ -56,6 +56,8 @@ public:
 	inline void clearBuffer(float rgb) { clearBuffer(rgb, rgb, rgb); }
 	void clearBuffer(float red, float green, float blue);
 
+	void tryStuff();
+
 private:
 
 	Microsoft::WRL::ComPtr<ID3D11Device> _device;

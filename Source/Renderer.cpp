@@ -3,8 +3,10 @@
 #include "Renderer.h"
 #include "DXErr/dxerr.h"
 #include <sstream>
+#include <d3dcompiler.h>
 
 #pragma comment(lib, "d3d11.lib")
+#pragma comment(lib,"D3DCompiler.lib")
 
 #define THROW_IF_FAILED(hrCall) if (FAILED(h_result = (hrCall))) throw Renderer::Exception(__LINE__, __FILE__, h_result)
 #define MAKE_DEVICE_REMOVED_EXCEPTION(h_result) Renderer::DeviceRemovedException(__LINE__, __FILE__, (h_result))
@@ -83,6 +85,97 @@ void Renderer::clearBuffer(float red, float green, float blue)
 }
 
 
+
+void Renderer::tryStuff()
+{
+	HRESULT h_result;
+
+	struct Vertex { float x, y; };
+
+	const Vertex vertices[] =
+	{
+		{ 0.f, 0.5f },
+		{ 0.5f, -0.5f },
+		{ -0.5f, -0.5f },
+	};
+
+	// SHADER SETTING
+
+	wrl::ComPtr<ID3DBlob> binary_data;
+
+	wrl::ComPtr<ID3D11PixelShader> pixel_shader;
+	THROW_IF_FAILED(D3DReadFileToBlob(L"Shaders\\PixelShader.cso", &binary_data));
+	THROW_IF_FAILED(_device->CreatePixelShader(binary_data->GetBufferPointer(), binary_data->GetBufferSize(), nullptr, &pixel_shader));
+
+	_device_context->PSSetShader(pixel_shader.Get(), nullptr, 0u);
+
+	wrl::ComPtr<ID3D11VertexShader> vertex_shader;
+	THROW_IF_FAILED(D3DReadFileToBlob(L"Shaders\\VertexShader.cso", &binary_data));
+	THROW_IF_FAILED(_device->CreateVertexShader(binary_data->GetBufferPointer(), binary_data->GetBufferSize(), nullptr, &vertex_shader));
+
+	_device_context->VSSetShader(vertex_shader.Get(), nullptr, 0u);
+
+	// VERTEX BUFFER
+
+	wrl::ComPtr<ID3D11Buffer> vertex_buffer;
+	D3D11_BUFFER_DESC vertex_descriptor = { 0 };
+	vertex_descriptor.BindFlags            = D3D11_BIND_VERTEX_BUFFER;
+	vertex_descriptor.Usage                = D3D11_USAGE_DEFAULT;
+	vertex_descriptor.CPUAccessFlags       = 0u;
+	vertex_descriptor.MiscFlags            = 0u;
+	vertex_descriptor.ByteWidth            = sizeof(vertices);
+	vertex_descriptor.StructureByteStride  = sizeof(Vertex);
+
+	D3D11_SUBRESOURCE_DATA vertex_buffer_subresource = { 0 };
+	vertex_buffer_subresource.pSysMem = vertices;
+
+	THROW_IF_FAILED(_device->CreateBuffer(&vertex_descriptor, &vertex_buffer_subresource, &vertex_buffer));
+
+	const UINT stride = sizeof(Vertex);
+	const UINT offset = 0u;
+	_device_context->IASetVertexBuffers(0u, 1u, vertex_buffer.GetAddressOf(), &stride, &offset);
+
+	// INPUT LAYOUT
+
+	wrl::ComPtr<ID3D11InputLayout> input_layout;
+
+	const D3D11_INPUT_ELEMENT_DESC input_element_descriptors[] =
+	{
+		{ "Position", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, 0u, D3D11_INPUT_PER_VERTEX_DATA, 0u }
+	};
+
+	THROW_IF_FAILED(_device->CreateInputLayout
+	(
+		input_element_descriptors,
+		(UINT) (sizeof(input_element_descriptors) / sizeof(D3D11_INPUT_ELEMENT_DESC)),
+		binary_data->GetBufferPointer(),
+		binary_data->GetBufferSize(),
+		&input_layout
+	));
+
+	_device_context->IASetInputLayout(input_layout.Get());
+
+	// SOME CONTEXT SETTINGS
+
+	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), nullptr);
+	_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// VIEWPORT CONFIG
+
+	D3D11_VIEWPORT viewport = { 0 };
+	viewport.Width     = 800.f;
+	viewport.Height    = 600.f;
+	viewport.MinDepth  = 0.f;
+	viewport.MaxDepth  = 1.f;
+	viewport.TopLeftX  = 0.f;
+	viewport.TopLeftY  = 0.f;
+
+	_device_context->RSSetViewports(1u, &viewport);
+
+	// DRAW!
+
+	_device_context->Draw((UINT) (sizeof(vertices) / sizeof(Vertex)), 0u);
+}
 
 ////// Renderer Exception //////
 
