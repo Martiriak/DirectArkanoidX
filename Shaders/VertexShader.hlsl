@@ -1,10 +1,10 @@
 struct VertexOut
 {
-	float4 position : SV_POSITION;
-	float4 color : COLOR;
+	float4 position : SV_Position;
+	float4 color : Color;
 };
 
-VertexOut main(float2 pos : POSITION, float3 col : COLOR)
+VertexOut main(float2 pos : Position, float3 col : Color)
 {
 	VertexOut output;
 
