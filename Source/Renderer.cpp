@@ -90,13 +90,13 @@ void Renderer::tryStuff()
 {
 	HRESULT h_result;
 
-	struct Vertex { float x, y; };
+	struct Vertex { float x, y, r, g, b; };
 
 	const Vertex vertices[] =
 	{
-		{ 0.f, 0.5f },
-		{ 0.5f, -0.5f },
-		{ -0.5f, -0.5f },
+		{ 0.f, 0.5f, 1.f, 0.f, 0.f },
+		{ 0.5f, -0.5f, 0.f, 1.f, 0.f },
+		{ -0.5f, -0.5f, 0.f, 0.f, 1.f },
 	};
 
 	// SHADER SETTING
@@ -141,7 +141,8 @@ void Renderer::tryStuff()
 
 	const D3D11_INPUT_ELEMENT_DESC input_element_descriptors[] =
 	{
-		{ "Position", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, 0u, D3D11_INPUT_PER_VERTEX_DATA, 0u }
+		{ "POSITION", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, 0u, D3D11_INPUT_PER_VERTEX_DATA, 0u },
+		{ "COLOR", 0u, DXGI_FORMAT_R32G32B32_FLOAT, 0u, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0u }
 	};
 
 	THROW_IF_FAILED(_device->CreateInputLayout
