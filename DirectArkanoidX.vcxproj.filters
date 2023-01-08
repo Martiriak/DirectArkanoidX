@@ -8,6 +8,7 @@
     <ClInclude Include="Headers\Renderer.h" />
     <ClInclude Include="Headers\ChiliException.h" />
     <ClInclude Include="DxErr\dxerr.h" />
+    <ClInclude Include="Headers\DirectXThrowMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />

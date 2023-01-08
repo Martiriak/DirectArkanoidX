@@ -2,15 +2,13 @@
 
 #include "Renderer.h"
 #include "DXErr/dxerr.h"
+#include "DirectXThrowMacros.h"
 #include <sstream>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
-
-#define THROW_IF_FAILED(hrCall) if (FAILED(h_result = (hrCall))) throw Renderer::Exception(__LINE__, __FILE__, h_result)
-#define MAKE_DEVICE_REMOVED_EXCEPTION(h_result) Renderer::DeviceRemovedException(__LINE__, __FILE__, (h_result))
 
 
 namespace wrl = Microsoft::WRL;
