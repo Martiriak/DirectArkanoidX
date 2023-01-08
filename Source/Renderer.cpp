@@ -57,6 +57,42 @@ Renderer::Renderer(HWND h_window)
 	wrl::ComPtr<ID3D11Resource> back_buffer = nullptr;
 	THROW_IF_FAILED(_swap_chain->GetBuffer(0u, __uuidof(ID3D11Resource), &back_buffer));
 	THROW_IF_FAILED(_device->CreateRenderTargetView(back_buffer.Get(), nullptr, &_render_target_view));
+
+	// Make Depth Stencil state.
+	wrl::ComPtr<ID3D11DepthStencilState> depth_state = nullptr;
+
+	D3D11_DEPTH_STENCIL_DESC depth_state_descriptor = { };
+	depth_state_descriptor.DepthEnable     = TRUE;
+	depth_state_descriptor.DepthWriteMask  = D3D11_DEPTH_WRITE_MASK_ALL;
+	depth_state_descriptor.DepthFunc       = D3D11_COMPARISON_LESS;
+
+	THROW_IF_FAILED(_device->CreateDepthStencilState(&depth_state_descriptor, &depth_state));
+
+	_device_context->OMSetDepthStencilState(depth_state.Get(), 0u);
+
+	wrl::ComPtr<ID3D11Texture2D> depth_texture = nullptr;
+
+	D3D11_TEXTURE2D_DESC depth_texture_descriptor = { };
+	depth_texture_descriptor.Width               = 800u;
+	depth_texture_descriptor.Height              = 800u;
+	depth_texture_descriptor.MipLevels           = 1u;
+	depth_texture_descriptor.ArraySize           = 1u;
+	depth_texture_descriptor.Format              = DXGI_FORMAT_D32_FLOAT;
+	depth_texture_descriptor.SampleDesc.Count    = 1u;
+	depth_texture_descriptor.SampleDesc.Quality  = 0u;
+	depth_texture_descriptor.Usage               = D3D11_USAGE_DEFAULT;
+	depth_texture_descriptor.BindFlags           = D3D11_BIND_DEPTH_STENCIL;
+
+	THROW_IF_FAILED(_device->CreateTexture2D(&depth_texture_descriptor, nullptr, &depth_texture));
+
+	D3D11_DEPTH_STENCIL_VIEW_DESC depth_view_descriptor = { };
+	depth_view_descriptor.Format              = DXGI_FORMAT_UNKNOWN; // It takes that of the texture.
+	depth_view_descriptor.ViewDimension       = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depth_view_descriptor.Texture2D.MipSlice  = 0u;
+
+	THROW_IF_FAILED(_device->CreateDepthStencilView(depth_texture.Get(), &depth_view_descriptor, &_depth_view));
+
+	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), _depth_view.Get());
 }
 
 
@@ -83,6 +119,7 @@ void Renderer::clearBuffer(float red, float green, float blue)
 	const float color[] = { red, green, blue, 1.f };
 
 	_device_context->ClearRenderTargetView(_render_target_view.Get(), color);
+	_device_context->ClearDepthStencilView(_depth_view.Get(), D3D11_CLEAR_DEPTH, 1.f, 0u);
 }
 
 
