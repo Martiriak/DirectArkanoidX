@@ -19,7 +19,7 @@ Renderer::Renderer(HWND h_window)
 {
 	HRESULT h_result;
 
-	DXGI_SWAP_CHAIN_DESC sc_descriptor = { 0 };
+	DXGI_SWAP_CHAIN_DESC sc_descriptor = { };
 	sc_descriptor.BufferDesc.Width                    = 0u;
 	sc_descriptor.BufferDesc.Height                   = 0u;
 	sc_descriptor.BufferDesc.Format                   = DXGI_FORMAT_B8G8R8A8_UNORM;
@@ -185,7 +185,7 @@ void Renderer::tryStuff(float delta_time)
 	// VERTEX BUFFER
 
 	wrl::ComPtr<ID3D11Buffer> vertex_buffer;
-	D3D11_BUFFER_DESC vertex_descriptor = { 0 };
+	D3D11_BUFFER_DESC vertex_descriptor = { };
 	vertex_descriptor.BindFlags            = D3D11_BIND_VERTEX_BUFFER;
 	vertex_descriptor.Usage                = D3D11_USAGE_DEFAULT;
 	vertex_descriptor.CPUAccessFlags       = 0u;
@@ -193,7 +193,7 @@ void Renderer::tryStuff(float delta_time)
 	vertex_descriptor.ByteWidth            = sizeof(vertices);
 	vertex_descriptor.StructureByteStride  = sizeof(Vertex);
 
-	D3D11_SUBRESOURCE_DATA vertex_buffer_subresource = { 0 };
+	D3D11_SUBRESOURCE_DATA vertex_buffer_subresource = { };
 	vertex_buffer_subresource.pSysMem = vertices;
 
 	THROW_IF_FAILED(_device->CreateBuffer(&vertex_descriptor, &vertex_buffer_subresource, &vertex_buffer));
@@ -205,7 +205,7 @@ void Renderer::tryStuff(float delta_time)
 	// INDEX BUFFER
 
 	wrl::ComPtr<ID3D11Buffer> index_buffer;
-	D3D11_BUFFER_DESC index_descriptor = { 0 };
+	D3D11_BUFFER_DESC index_descriptor = { };
 	index_descriptor.BindFlags            = D3D11_BIND_INDEX_BUFFER;
 	index_descriptor.Usage                = D3D11_USAGE_DEFAULT;
 	index_descriptor.CPUAccessFlags       = 0u;
@@ -213,7 +213,7 @@ void Renderer::tryStuff(float delta_time)
 	index_descriptor.ByteWidth            = sizeof(indices);
 	index_descriptor.StructureByteStride  = sizeof(uint16);
 
-	D3D11_SUBRESOURCE_DATA index_buffer_subresource = { 0 };
+	D3D11_SUBRESOURCE_DATA index_buffer_subresource = { };
 	index_buffer_subresource.pSysMem = indices;
 
 	THROW_IF_FAILED(_device->CreateBuffer(&index_descriptor, &index_buffer_subresource, &index_buffer));
@@ -224,7 +224,7 @@ void Renderer::tryStuff(float delta_time)
 	// CONSTANT BUFFER
 
 	wrl::ComPtr<ID3D11Buffer> constant_buffer;
-	D3D11_BUFFER_DESC constant_descriptor = { 0 };
+	D3D11_BUFFER_DESC constant_descriptor = { };
 	constant_descriptor.BindFlags            = D3D11_BIND_CONSTANT_BUFFER;
 	constant_descriptor.Usage                = D3D11_USAGE_DYNAMIC;
 	constant_descriptor.CPUAccessFlags       = D3D11_CPU_ACCESS_WRITE;
@@ -232,7 +232,7 @@ void Renderer::tryStuff(float delta_time)
 	constant_descriptor.ByteWidth            = sizeof(matrices);
 	constant_descriptor.StructureByteStride  = sizeof(RotationMatrix);
 
-	D3D11_SUBRESOURCE_DATA constant_buffer_subresource = { 0 };
+	D3D11_SUBRESOURCE_DATA constant_buffer_subresource = { };
 	constant_buffer_subresource.pSysMem = matrices;
 
 	THROW_IF_FAILED(_device->CreateBuffer(&constant_descriptor, &constant_buffer_subresource, &constant_buffer));
@@ -267,7 +267,7 @@ void Renderer::tryStuff(float delta_time)
 
 	// VIEWPORT CONFIG
 
-	D3D11_VIEWPORT viewport = { 0 };
+	D3D11_VIEWPORT viewport = { };
 	viewport.Width     = 800.f;
 	viewport.Height    = 800.f;
 	viewport.MinDepth  = 0.f;
