@@ -56,7 +56,7 @@ public:
 	inline void clearBuffer(float rgb) { clearBuffer(rgb, rgb, rgb); }
 	void clearBuffer(float red, float green, float blue);
 
-	void tryStuff();
+	void tryStuff(float delta_time);
 
 private:
 

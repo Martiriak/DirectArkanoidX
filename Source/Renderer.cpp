@@ -4,6 +4,7 @@
 #include "DXErr/dxerr.h"
 #include <sstream>
 #include <d3dcompiler.h>
+#include <DirectXMath.h>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
@@ -86,14 +87,20 @@ void Renderer::clearBuffer(float red, float green, float blue)
 
 
 
-void Renderer::tryStuff()
+void Renderer::tryStuff(float delta_time)
 {
 	using byte = unsigned char;
 	using uint16 = unsigned short;
 
+	static float time_elapsed = 0.f;
+
+	time_elapsed += delta_time;
+
 	HRESULT h_result;
 
 	struct Vertex { float x, y; byte r, g, b, a; };
+
+	struct RotationMatrix { DirectX::XMMATRIX transform; };
 
 	const Vertex vertices[] =
 	{
@@ -115,6 +122,11 @@ void Renderer::tryStuff()
 		5, 6, 7,
 		7, 1, 5,
 		5, 1, 3
+	};
+
+	const RotationMatrix matrices[] =
+	{
+		{ DirectX::XMMatrixTranspose(DirectX::XMMatrixRotationZ(time_elapsed)) }
 	};
 
 	// SHADER SETTING
@@ -172,6 +184,24 @@ void Renderer::tryStuff()
 	constexpr UINT index_offset = 0u;
 	_device_context->IASetIndexBuffer(index_buffer.Get(), DXGI_FORMAT_R16_UINT, index_offset);
 
+	// CONSTANT BUFFER
+
+	wrl::ComPtr<ID3D11Buffer> constant_buffer;
+	D3D11_BUFFER_DESC constant_descriptor = { 0 };
+	constant_descriptor.BindFlags            = D3D11_BIND_CONSTANT_BUFFER;
+	constant_descriptor.Usage                = D3D11_USAGE_DYNAMIC;
+	constant_descriptor.CPUAccessFlags       = D3D11_CPU_ACCESS_WRITE;
+	constant_descriptor.MiscFlags            = 0u;
+	constant_descriptor.ByteWidth            = sizeof(matrices);
+	constant_descriptor.StructureByteStride  = sizeof(RotationMatrix);
+
+	D3D11_SUBRESOURCE_DATA constant_buffer_subresource = { 0 };
+	constant_buffer_subresource.pSysMem = matrices;
+
+	THROW_IF_FAILED(_device->CreateBuffer(&constant_descriptor, &constant_buffer_subresource, &constant_buffer));
+
+	_device_context->VSSetConstantBuffers(0u, 1u, constant_buffer.GetAddressOf());
+
 	// INPUT LAYOUT
 
 	wrl::ComPtr<ID3D11InputLayout> input_layout;
@@ -216,7 +246,9 @@ void Renderer::tryStuff()
 	_device_context->DrawIndexed((UINT)(sizeof(indices) / sizeof(uint16)), 0u, 0u);
 }
 
+
 ////// Renderer Exception //////
+
 
 
 Renderer::Exception::Exception(int line, const char* file, HRESULT h_result) noexcept
