@@ -13,7 +13,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	try
 	{
-		Application app(800, 600, "Arkanoid X");
+		Application app(800, 800, "Arkanoid X");
 
 		auto prev_frame = chrono_clock::now();
 

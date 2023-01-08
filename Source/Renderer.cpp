@@ -232,7 +232,7 @@ void Renderer::tryStuff(float delta_time)
 
 	D3D11_VIEWPORT viewport = { 0 };
 	viewport.Width     = 800.f;
-	viewport.Height    = 600.f;
+	viewport.Height    = 800.f;
 	viewport.MinDepth  = 0.f;
 	viewport.MaxDepth  = 1.f;
 	viewport.TopLeftX  = 0.f;
