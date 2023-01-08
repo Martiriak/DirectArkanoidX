@@ -28,10 +28,12 @@
     <ClInclude Include="Headers\Bindables\VertexBuffer.h" />
     <ClInclude Include="Headers\Bindables\VertexShader.h" />
     <ClInclude Include="Headers\ChiliException.h" />
+    <ClInclude Include="Headers\Color.h" />
     <ClInclude Include="Headers\DirectXThrowMacros.h" />
     <ClInclude Include="Headers\Drawables\Drawable.h" />
     <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\Renderer.h" />
+    <ClInclude Include="Headers\Vertex.h" />
     <ClInclude Include="Headers\Window.h" />
     <ClInclude Include="Headers\Windows_Fixed.h" />
   </ItemGroup>
