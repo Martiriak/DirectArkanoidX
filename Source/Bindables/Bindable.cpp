@@ -1,7 +1,6 @@
 // Alessandro Pegoraro - Graphics Programming
 
 #include "Bindables/Bindable.h"
-#include "Renderer.h"
 
 
 ID3D11Device* IBindable::getDevice(Renderer& renderer) noexcept
