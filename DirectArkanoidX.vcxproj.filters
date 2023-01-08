@@ -9,6 +9,13 @@
     <ClInclude Include="Headers\ChiliException.h" />
     <ClInclude Include="DxErr\dxerr.h" />
     <ClInclude Include="Headers\DirectXThrowMacros.h" />
+    <ClInclude Include="Headers\Bindables\Bindable.h" />
+    <ClInclude Include="Headers\Drawables\Drawable.h" />
+    <ClInclude Include="Headers\Bindables\IndexBuffer.h" />
+    <ClInclude Include="Headers\Bindables\VertexBuffer.h" />
+    <ClInclude Include="Headers\Bindables\Topology.h" />
+    <ClInclude Include="Headers\Bindables\VertexShader.h" />
+    <ClInclude Include="Headers\Bindables\PixelShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
@@ -18,6 +25,13 @@
     <ClCompile Include="Source\Renderer.cpp" />
     <ClCompile Include="Source\ChiliException.cpp" />
     <ClCompile Include="DxErr\dxerr.cpp" />
+    <ClCompile Include="Source\Bindables\Bindable.cpp" />
+    <ClCompile Include="Source\Drawables\Drawable.cpp" />
+    <ClCompile Include="Source\Bindables\IndexBuffer.cpp" />
+    <ClCompile Include="Source\Bindables\VertexBuffer.cpp" />
+    <ClCompile Include="Source\Bindables\Topology.cpp" />
+    <ClCompile Include="Source\Bindables\VertexShader.cpp" />
+    <ClCompile Include="Source\Bindables\PixelShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />
