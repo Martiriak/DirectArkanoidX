@@ -7,6 +7,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include "Bindables/VertexBuffer.h"
+#include "Bindables/IndexBuffer.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
@@ -131,9 +132,6 @@ void Renderer::clearBuffer(float red, float green, float blue)
 
 void Renderer::tryStuff(float delta_time)
 {
-	using byte = unsigned char;
-	using uint16 = unsigned short;
-
 	static float time_elapsed = 0.f;
 
 	time_elapsed += delta_time;
@@ -154,7 +152,7 @@ void Renderer::tryStuff(float delta_time)
 		{ -0.25f, 0.25f, 0u, 0u, 0u, 0u },
 	};
 
-	const uint16 indices[] =
+	const std::vector<unsigned short> indices =
 	{
 		7, 0, 1,
 		1, 2, 3,
@@ -192,22 +190,8 @@ void Renderer::tryStuff(float delta_time)
 
 	// INDEX BUFFER
 
-	wrl::ComPtr<ID3D11Buffer> index_buffer;
-	D3D11_BUFFER_DESC index_descriptor = { };
-	index_descriptor.BindFlags            = D3D11_BIND_INDEX_BUFFER;
-	index_descriptor.Usage                = D3D11_USAGE_DEFAULT;
-	index_descriptor.CPUAccessFlags       = 0u;
-	index_descriptor.MiscFlags            = 0u;
-	index_descriptor.ByteWidth            = sizeof(indices);
-	index_descriptor.StructureByteStride  = sizeof(uint16);
-
-	D3D11_SUBRESOURCE_DATA index_buffer_subresource = { };
-	index_buffer_subresource.pSysMem = indices;
-
-	THROW_IF_FAILED(_device->CreateBuffer(&index_descriptor, &index_buffer_subresource, &index_buffer));
-
-	constexpr UINT index_offset = 0u;
-	_device_context->IASetIndexBuffer(index_buffer.Get(), DXGI_FORMAT_R16_UINT, index_offset);
+	IndexBuffer index_buffer(*this, indices);
+	index_buffer.bindTo(*this);
 
 	// CONSTANT BUFFER
 
@@ -268,7 +252,7 @@ void Renderer::tryStuff(float delta_time)
 	// DRAW!
 
 	//_device_context->Draw((UINT)(sizeof(vertices) / sizeof(Vertex)), 0u);
-	_device_context->DrawIndexed((UINT)(sizeof(indices) / sizeof(uint16)), 0u, 0u);
+	_device_context->DrawIndexed(index_buffer.getIndicesNumber(), 0u, 0u);
 }
 
 
