@@ -6,6 +6,7 @@
 #include <sstream>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include "Bindables/VertexBuffer.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
@@ -139,11 +140,9 @@ void Renderer::tryStuff(float delta_time)
 
 	HRESULT h_result;
 
-	struct Vertex { float x, y; byte r, g, b, a; };
-
 	struct RotationMatrix { DirectX::XMMATRIX transform; };
 
-	const Vertex vertices[] =
+	const std::vector<Vertex> vertices =
 	{
 		{ 0.f, 0.75f, 255u, 0u, 0u, 0u },
 		{ 0.25f, 0.25f, 0u, 255u, 0u, 0u },
@@ -188,23 +187,8 @@ void Renderer::tryStuff(float delta_time)
 
 	// VERTEX BUFFER
 
-	wrl::ComPtr<ID3D11Buffer> vertex_buffer;
-	D3D11_BUFFER_DESC vertex_descriptor = { };
-	vertex_descriptor.BindFlags            = D3D11_BIND_VERTEX_BUFFER;
-	vertex_descriptor.Usage                = D3D11_USAGE_DEFAULT;
-	vertex_descriptor.CPUAccessFlags       = 0u;
-	vertex_descriptor.MiscFlags            = 0u;
-	vertex_descriptor.ByteWidth            = sizeof(vertices);
-	vertex_descriptor.StructureByteStride  = sizeof(Vertex);
-
-	D3D11_SUBRESOURCE_DATA vertex_buffer_subresource = { };
-	vertex_buffer_subresource.pSysMem = vertices;
-
-	THROW_IF_FAILED(_device->CreateBuffer(&vertex_descriptor, &vertex_buffer_subresource, &vertex_buffer));
-
-	constexpr UINT vertex_stride = sizeof(Vertex);
-	constexpr UINT vertex_offset = 0u;
-	_device_context->IASetVertexBuffers(0u, 1u, vertex_buffer.GetAddressOf(), &vertex_stride, &vertex_offset);
+	VertexBuffer vertex_buffer(*this, vertices);
+	vertex_buffer.bindTo(*this);
 
 	// INDEX BUFFER
 
