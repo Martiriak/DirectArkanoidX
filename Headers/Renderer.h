@@ -10,6 +10,8 @@
 
 class Renderer
 {
+	friend class IBindable;
+
 //// INNER CLASSES ////
 
 public:
