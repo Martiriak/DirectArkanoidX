@@ -15,6 +15,12 @@ namespace wrl = Microsoft::WRL;
 
 Renderer::Renderer(HWND h_window)
 {
+#ifndef NDEBUG
+	constexpr UINT swap_chain_flags = D3D11_CREATE_DEVICE_DEBUG;
+#else
+	constexpr UINT swap_chain_flags = 0u;
+#endif
+
 	HRESULT h_result;
 
 	DXGI_SWAP_CHAIN_DESC sc_descriptor = { };
@@ -40,7 +46,7 @@ Renderer::Renderer(HWND h_window)
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
-		D3D11_CREATE_DEVICE_DEBUG,
+		swap_chain_flags,
 		nullptr,
 		0u,
 		D3D11_SDK_VERSION,
