@@ -8,6 +8,8 @@
 #include <DirectXMath.h>
 #include "Bindables/VertexBuffer.h"
 #include "Bindables/IndexBuffer.h"
+#include "Bindables/VertexShader.h"
+#include "Bindables/PixelShader.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
@@ -169,19 +171,11 @@ void Renderer::tryStuff(float delta_time)
 
 	// SHADER SETTING
 
-	wrl::ComPtr<ID3DBlob> binary_data;
+	VertexShader vertex_shader(*this, L"Shaders\\VertexShader.cso");
+	vertex_shader.bindTo(*this);
 
-	wrl::ComPtr<ID3D11PixelShader> pixel_shader;
-	THROW_IF_FAILED(D3DReadFileToBlob(L"Shaders\\PixelShader.cso", &binary_data));
-	THROW_IF_FAILED(_device->CreatePixelShader(binary_data->GetBufferPointer(), binary_data->GetBufferSize(), nullptr, &pixel_shader));
-
-	_device_context->PSSetShader(pixel_shader.Get(), nullptr, 0u);
-
-	wrl::ComPtr<ID3D11VertexShader> vertex_shader;
-	THROW_IF_FAILED(D3DReadFileToBlob(L"Shaders\\VertexShader.cso", &binary_data));
-	THROW_IF_FAILED(_device->CreateVertexShader(binary_data->GetBufferPointer(), binary_data->GetBufferSize(), nullptr, &vertex_shader));
-
-	_device_context->VSSetShader(vertex_shader.Get(), nullptr, 0u);
+	PixelShader pixel_shader(*this, L"Shaders\\PixelShader.cso");
+	pixel_shader.bindTo(*this);
 
 	// VERTEX BUFFER
 
@@ -225,8 +219,8 @@ void Renderer::tryStuff(float delta_time)
 	(
 		input_element_descriptors,
 		(UINT) (sizeof(input_element_descriptors) / sizeof(D3D11_INPUT_ELEMENT_DESC)),
-		binary_data->GetBufferPointer(),
-		binary_data->GetBufferSize(),
+		vertex_shader.getBlobBufferPointer(),
+		vertex_shader.getBlobBufferSize(),
 		&input_layout
 	));
 
