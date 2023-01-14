@@ -10,6 +10,7 @@
 #include "Bindables/IndexBuffer.h"
 #include "Bindables/VertexShader.h"
 #include "Bindables/PixelShader.h"
+#include "Bindables/Topology.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
@@ -229,7 +230,9 @@ void Renderer::tryStuff(float delta_time)
 	// SOME CONTEXT SETTINGS
 
 	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), nullptr);
-	_device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	Topology topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	topology.bindTo(*this);
 
 	// VIEWPORT CONFIG
 
