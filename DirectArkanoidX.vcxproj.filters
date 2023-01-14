@@ -18,6 +18,7 @@
     <ClInclude Include="Headers\Bindables\PixelShader.h" />
     <ClInclude Include="Headers\Vertex.h" />
     <ClInclude Include="Headers\Color.h" />
+    <ClInclude Include="Headers\Bindables\ConstantBuffers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />

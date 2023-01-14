@@ -36,6 +36,7 @@
     <ClInclude Include="Headers\Vertex.h" />
     <ClInclude Include="Headers\Window.h" />
     <ClInclude Include="Headers\Windows_Fixed.h" />
+    <ClInclude Include="Headers\Bindables\ConstantBuffers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DxErr\dxerr.cpp" />

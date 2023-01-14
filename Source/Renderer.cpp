@@ -11,6 +11,7 @@
 #include "Bindables/VertexShader.h"
 #include "Bindables/PixelShader.h"
 #include "Bindables/Topology.h"
+#include "Bindables/ConstantBuffers.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib,"D3DCompiler.lib")
@@ -165,7 +166,7 @@ void Renderer::tryStuff(float delta_time)
 		5, 1, 3
 	};
 
-	const RotationMatrix matrices[] =
+	const RotationMatrix matrices =
 	{
 		{ DirectX::XMMatrixTranspose(DirectX::XMMatrixRotationZ(time_elapsed)) }
 	};
@@ -190,21 +191,8 @@ void Renderer::tryStuff(float delta_time)
 
 	// CONSTANT BUFFER
 
-	wrl::ComPtr<ID3D11Buffer> constant_buffer;
-	D3D11_BUFFER_DESC constant_descriptor = { };
-	constant_descriptor.BindFlags            = D3D11_BIND_CONSTANT_BUFFER;
-	constant_descriptor.Usage                = D3D11_USAGE_DYNAMIC;
-	constant_descriptor.CPUAccessFlags       = D3D11_CPU_ACCESS_WRITE;
-	constant_descriptor.MiscFlags            = 0u;
-	constant_descriptor.ByteWidth            = sizeof(matrices);
-	constant_descriptor.StructureByteStride  = sizeof(RotationMatrix);
-
-	D3D11_SUBRESOURCE_DATA constant_buffer_subresource = { };
-	constant_buffer_subresource.pSysMem = matrices;
-
-	THROW_IF_FAILED(_device->CreateBuffer(&constant_descriptor, &constant_buffer_subresource, &constant_buffer));
-
-	_device_context->VSSetConstantBuffers(0u, 1u, constant_buffer.GetAddressOf());
+	VertexConstantBuffer<RotationMatrix> vertex_constant_buffer(*this, matrices);
+	vertex_constant_buffer.bindTo(*this);
 
 	// INPUT LAYOUT
 
