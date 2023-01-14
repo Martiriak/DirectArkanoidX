@@ -23,6 +23,7 @@
     <ClInclude Include="Headers\Application.h" />
     <ClInclude Include="Headers\Bindables\Bindable.h" />
     <ClInclude Include="Headers\Bindables\IndexBuffer.h" />
+    <ClInclude Include="Headers\Bindables\InputLayout.h" />
     <ClInclude Include="Headers\Bindables\PixelShader.h" />
     <ClInclude Include="Headers\Bindables\Topology.h" />
     <ClInclude Include="Headers\Bindables\VertexBuffer.h" />
@@ -43,6 +44,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Bindables\Bindable.cpp" />
     <ClCompile Include="Source\Bindables\IndexBuffer.cpp" />
+    <ClCompile Include="Source\Bindables\InputLayout.cpp" />
     <ClCompile Include="Source\Bindables\PixelShader.cpp" />
     <ClCompile Include="Source\Bindables\Topology.cpp" />
     <ClCompile Include="Source\Bindables\VertexBuffer.cpp" />

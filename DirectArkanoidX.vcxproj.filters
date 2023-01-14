@@ -19,6 +19,7 @@
     <ClInclude Include="Headers\Vertex.h" />
     <ClInclude Include="Headers\Color.h" />
     <ClInclude Include="Headers\Bindables\ConstantBuffers.h" />
+    <ClInclude Include="Headers\Bindables\InputLayout.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="Source\Bindables\Topology.cpp" />
     <ClCompile Include="Source\Bindables\VertexShader.cpp" />
     <ClCompile Include="Source\Bindables\PixelShader.cpp" />
+    <ClCompile Include="Source\Bindables\InputLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />

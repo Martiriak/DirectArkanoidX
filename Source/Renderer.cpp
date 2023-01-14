@@ -4,7 +4,6 @@
 #include "DXErr/dxerr.h"
 #include "DirectXThrowMacros.h"
 #include <sstream>
-#include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include "Bindables/VertexBuffer.h"
 #include "Bindables/IndexBuffer.h"
@@ -12,9 +11,9 @@
 #include "Bindables/PixelShader.h"
 #include "Bindables/Topology.h"
 #include "Bindables/ConstantBuffers.h"
+#include "Bindables/InputLayout.h"
 
 #pragma comment(lib, "d3d11.lib")
-#pragma comment(lib,"D3DCompiler.lib")
 
 
 namespace wrl = Microsoft::WRL;
@@ -196,24 +195,14 @@ void Renderer::tryStuff(float delta_time)
 
 	// INPUT LAYOUT
 
-	wrl::ComPtr<ID3D11InputLayout> input_layout;
-
-	const D3D11_INPUT_ELEMENT_DESC input_element_descriptors[] =
+	const std::vector<D3D11_INPUT_ELEMENT_DESC> input_element_descriptors =
 	{
 		{ "Position", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, 0u, D3D11_INPUT_PER_VERTEX_DATA, 0u },
 		{ "Color", 0u, DXGI_FORMAT_R8G8B8A8_UNORM, 0u, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0u }
 	};
 
-	THROW_IF_FAILED(_device->CreateInputLayout
-	(
-		input_element_descriptors,
-		(UINT) (sizeof(input_element_descriptors) / sizeof(D3D11_INPUT_ELEMENT_DESC)),
-		vertex_shader.getBlobBufferPointer(),
-		vertex_shader.getBlobBufferSize(),
-		&input_layout
-	));
-
-	_device_context->IASetInputLayout(input_layout.Get());
+	InputLayout input_layout(*this, input_element_descriptors, vertex_shader.getBlob());
+	input_layout.bindTo(*this);
 
 	// SOME CONTEXT SETTINGS
 

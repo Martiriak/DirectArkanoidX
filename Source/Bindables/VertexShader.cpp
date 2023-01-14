@@ -12,7 +12,13 @@ VertexShader::VertexShader(Renderer& renderer, LPCWSTR compiled_shader_path)
 	HRESULT h_result;
 
 	THROW_IF_FAILED(D3DReadFileToBlob(compiled_shader_path, &_binary_data));
-	THROW_IF_FAILED(getDevice(renderer)->CreateVertexShader(getBlobBufferPointer(), getBlobBufferSize(), nullptr, &_vertex_shader));
+	THROW_IF_FAILED(getDevice(renderer)->CreateVertexShader
+	(
+		getBlob()->GetBufferPointer(),
+		getBlob()->GetBufferSize(),
+		nullptr,
+		&_vertex_shader
+	));
 }
 
 

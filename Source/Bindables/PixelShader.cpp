@@ -12,7 +12,13 @@ PixelShader::PixelShader(Renderer& renderer, LPCWSTR compiled_shader_path)
 	HRESULT h_result;
 
 	THROW_IF_FAILED(D3DReadFileToBlob(compiled_shader_path, &_binary_data));
-	THROW_IF_FAILED(getDevice(renderer)->CreatePixelShader(getBlobBufferPointer(), getBlobBufferSize(), nullptr, &_pixel_shader));
+	THROW_IF_FAILED(getDevice(renderer)->CreatePixelShader
+	(
+		getBlob()->GetBufferPointer(),
+		getBlob()->GetBufferSize(),
+		nullptr,
+		&_pixel_shader
+	));
 }
 
 

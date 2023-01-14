@@ -13,8 +13,7 @@ public:
 
 	void bindTo(Renderer& renderer) noexcept override;
 
-	inline LPVOID getBlobBufferPointer() const { return _binary_data->GetBufferPointer(); }
-	inline SIZE_T getBlobBufferSize() const { return _binary_data->GetBufferSize(); }
+	inline ID3DBlob* getBlob() const { return _binary_data.Get(); }
 
 private:
 
