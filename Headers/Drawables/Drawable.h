@@ -26,6 +26,10 @@ public:
 	virtual DirectX::XMMATRIX getTransformMatrix() const noexcept = 0;
 	virtual void update(double total_time_passed, float delta_time) noexcept = 0;
 
+protected:
+
+	virtual const std::vector<std::unique_ptr<IBindable>>& getStaticBinds() const noexcept = 0;
+
 private:
 
 	const class IndexBuffer* _index_buffer = nullptr;
