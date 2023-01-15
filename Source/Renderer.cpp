@@ -123,6 +123,11 @@ void Renderer::present()
 }
 
 
+void Renderer::drawIndexed(UINT indices_count) noexcept
+{
+	_device_context->DrawIndexed(indices_count, 0u, 0u);
+}
+
 void Renderer::clearBuffer(float red, float green, float blue)
 {
 	const float color[] = { red, green, blue, 1.f };

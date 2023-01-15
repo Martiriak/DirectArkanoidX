@@ -54,6 +54,7 @@ public:
 	~Renderer() = default;
 
 	void present();
+	void drawIndexed(UINT indices_count) noexcept;
 
 	inline void clearBuffer(float rgb) { clearBuffer(rgb, rgb, rgb); }
 	void clearBuffer(float red, float green, float blue);
