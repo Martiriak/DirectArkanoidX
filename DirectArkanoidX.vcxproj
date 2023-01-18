@@ -31,6 +31,8 @@
     <ClInclude Include="Headers\ChiliException.h" />
     <ClInclude Include="Headers\Color.h" />
     <ClInclude Include="Headers\DirectXThrowMacros.h" />
+    <ClInclude Include="Headers\Drawables\DrawableStatics.h" />
+    <ClInclude Include="Headers\Drawables\Quad.h" />
     <ClInclude Include="Headers\Drawables\Drawable.h" />
     <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\Renderer.h" />
@@ -50,6 +52,7 @@
     <ClCompile Include="Source\Bindables\VertexBuffer.cpp" />
     <ClCompile Include="Source\Bindables\VertexShader.cpp" />
     <ClCompile Include="Source\ChiliException.cpp" />
+    <ClCompile Include="Source\Drawables\Quad.cpp" />
     <ClCompile Include="Source\Drawables\Drawable.cpp" />
     <ClCompile Include="Source\Keyboard.cpp" />
     <ClCompile Include="Source\Main.cpp" />
