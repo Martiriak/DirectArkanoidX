@@ -12,8 +12,8 @@
 
 Quad::Quad(Renderer& renderer, float center_point_x, float center_point_y, float width, float height, const Color& color)
 {
-	position.position.x = center_point_x;
-	position.position.y = center_point_y;
+	position.x = center_point_x;
+	position.y = center_point_y;
 
 	const Vertex upper_left = { -width / 2.f, height / 2.f, {color} };
 	const Vertex downer_right = { width / 2.f, -height / 2.f, {color} };

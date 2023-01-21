@@ -6,7 +6,6 @@
 #include <DirectXMath.h>
 #include <memory>
 #include <vector>
-#include "Vertex.h"
 #include "Bindables/ConstantBuffers.h"
 
 
@@ -31,7 +30,7 @@ public:
 
 protected:
 
-	Vertex position;
+	struct { float x, y; } position = { 0.f, 0.f };
 
 	virtual const std::vector<std::unique_ptr<IBindable>>& getStaticBinds() const noexcept = 0;
 

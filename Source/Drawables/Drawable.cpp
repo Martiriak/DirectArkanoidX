@@ -41,7 +41,7 @@ void Drawable::setIndexBuffer(std::unique_ptr<IndexBuffer> index_buffer) noexcep
 
 DirectX::XMMATRIX Drawable::getTransformMatrix() const noexcept
 {
-	return DirectX::XMMatrixTranslation(position.position.x, position.position.y, 0.f);
+	return DirectX::XMMatrixTranslation(position.x, position.y, 0.f);
 }
 
 void Drawable::updateAndBindTransformConstantBuffer(Renderer& renderer) const
