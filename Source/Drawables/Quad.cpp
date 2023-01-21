@@ -19,14 +19,6 @@ Quad::Quad(Renderer& renderer, const Vertex& upper_left, const Vertex& upper_rig
 }
 
 
-DirectX::XMMATRIX Quad::getTransformMatrix() const noexcept
-{
-	return DirectX::XMMatrixTranspose
-	(
-		DirectX::XMMatrixRotationZ(_rotation_angle)
-	);
-}
-
 void Quad::update(double total_time_passed, float delta_time) noexcept
 {
 	_rotation_angle = delta_time;

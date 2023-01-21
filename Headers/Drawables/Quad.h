@@ -12,7 +12,6 @@ public:
 
 	Quad(Renderer& renderer, const Vertex& upper_left, const Vertex& upper_right, const Vertex& downer_left, const Vertex& downer_right);
 
-	DirectX::XMMATRIX getTransformMatrix() const noexcept override;
 	void update(double total_time_passed, float delta_time) noexcept override;
 
 private:

@@ -9,6 +9,8 @@
 
 void Drawable::draw(Renderer& renderer) const noexcept
 {
+	updateAndBindTransformConstantBuffer(renderer);
+
 	for (auto& bound : _binds)
 	{
 		bound->bindTo(renderer);
@@ -30,4 +32,21 @@ void Drawable::setIndexBuffer(std::unique_ptr<IndexBuffer> index_buffer) noexcep
 
 	_index_buffer = index_buffer.get();
 	_binds.push_back(std::move(index_buffer));
+}
+
+DirectX::XMMATRIX Drawable::getTransformMatrix() const noexcept
+{
+	return DirectX::XMMatrixTranslation(position.position.x, position.position.y, 0.f);
+}
+
+void Drawable::updateAndBindTransformConstantBuffer(Renderer& renderer) const
+{
+	DirectX::XMMATRIX transform = DirectX::XMMatrixTranspose(getTransformMatrix());
+
+	if (_transform_constant_buffer) _transform_constant_buffer->updateElements(renderer, transform);
+	else
+	{
+		_transform_constant_buffer =
+			std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(renderer, transform);
+	}
 }
