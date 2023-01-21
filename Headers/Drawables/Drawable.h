@@ -26,6 +26,10 @@ public:
 	void setIndexBuffer(std::unique_ptr<class IndexBuffer> index_buffer) noexcept;
 	DirectX::XMMATRIX getTransformMatrix() const noexcept;
 
+	inline void setPosition(float x, float y) noexcept { position.x = x; position.y = y; }
+	inline float getPositionX() const noexcept { return position.x; }
+	inline float getPositionY() const noexcept { return position.y; }
+
 	virtual void update(double total_time_passed, float delta_time) noexcept = 0;
 
 protected:

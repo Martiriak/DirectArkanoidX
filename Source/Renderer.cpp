@@ -148,15 +148,13 @@ void Renderer::tryStuff(float delta_time)
 
 	HRESULT h_result;
 
-	const Quad quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
-	const Quad quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
+	static Quad quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
+	static Quad quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
 
 
-	// SOME CONTEXT SETTINGS
+	// SOME SETTINGS
 
 	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), nullptr);
-
-	// VIEWPORT CONFIG
 
 	D3D11_VIEWPORT viewport = { };
 	viewport.Width     = 800.f;
@@ -167,6 +165,14 @@ void Renderer::tryStuff(float delta_time)
 	viewport.TopLeftY  = 0.f;
 
 	_device_context->RSSetViewports(1u, &viewport);
+
+	// UPDATING
+
+	float displacement = 0.001f;
+	if ((int) time_elapsed % 2 != 0) displacement = -displacement;
+
+	quad1.setPosition(quad1.getPositionX() + displacement, quad1.getPositionY());
+	quad2.setPosition(quad2.getPositionX(), quad2.getPositionY() + displacement);
 
 	// DRAW!
 	quad1.draw(*this);
