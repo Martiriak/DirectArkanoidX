@@ -16,6 +16,11 @@ void Drawable::draw(Renderer& renderer) const noexcept
 		bound->bindTo(renderer);
 	}
 
+	for (auto& static_bound : getStaticBinds())
+	{
+		static_bound->bindTo(renderer);
+	}
+
 	renderer.drawIndexed(_index_buffer->getIndicesNumber());
 }
 
@@ -49,4 +54,6 @@ void Drawable::updateAndBindTransformConstantBuffer(Renderer& renderer) const
 		_transform_constant_buffer =
 			std::make_unique<VertexConstantBuffer<DirectX::XMMATRIX>>(renderer, transform);
 	}
+
+	_transform_constant_buffer->bindTo(renderer);
 }

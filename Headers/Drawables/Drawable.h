@@ -14,6 +14,7 @@ class IBindable;
 
 class Drawable
 {
+	template <typename T> friend class DrawableStatics;
 
 public:
 

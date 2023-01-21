@@ -13,6 +13,8 @@
 #include "Bindables/ConstantBuffers.h"
 #include "Bindables/InputLayout.h"
 
+#include "Drawables/Quad.h"
+
 #pragma comment(lib, "d3d11.lib")
 
 
@@ -146,75 +148,13 @@ void Renderer::tryStuff(float delta_time)
 
 	HRESULT h_result;
 
-	struct RotationMatrix { DirectX::XMMATRIX transform; };
+	const Quad quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
+	const Quad quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
 
-	const std::vector<Vertex> vertices =
-	{
-		{ 0.f, 0.75f, 255u, 0u, 0u, 0u },
-		{ 0.25f, 0.25f, 0u, 255u, 0u, 0u },
-		{ 0.75f, 0.f, 0u, 0u, 255u, 0u },
-		{ 0.25f, -0.25f, 0u, 255u, 255u, 0u },
-		{ 0.f, -0.75f, 255u, 0u, 255u, 0u },
-		{ -0.25f, -0.25f, 255u, 255u, 0u, 0u },
-		{ -0.75f, 0.f, 255u, 255u, 255u, 0u },
-		{ -0.25f, 0.25f, 0u, 0u, 0u, 0u },
-	};
-
-	const std::vector<unsigned short> indices =
-	{
-		7, 0, 1,
-		1, 2, 3,
-		3, 4, 5,
-		5, 6, 7,
-		7, 1, 5,
-		5, 1, 3
-	};
-
-	const RotationMatrix matrices =
-	{
-		{ DirectX::XMMatrixTranspose(DirectX::XMMatrixRotationZ(time_elapsed)) }
-	};
-
-	// SHADER SETTING
-
-	VertexShader vertex_shader(*this, L"Shaders\\VertexShader.cso");
-	vertex_shader.bindTo(*this);
-
-	PixelShader pixel_shader(*this, L"Shaders\\PixelShader.cso");
-	pixel_shader.bindTo(*this);
-
-	// VERTEX BUFFER
-
-	VertexBuffer vertex_buffer(*this, vertices);
-	vertex_buffer.bindTo(*this);
-
-	// INDEX BUFFER
-
-	IndexBuffer index_buffer(*this, indices);
-	index_buffer.bindTo(*this);
-
-	// CONSTANT BUFFER
-
-	VertexConstantBuffer<RotationMatrix> vertex_constant_buffer(*this, matrices);
-	vertex_constant_buffer.bindTo(*this);
-
-	// INPUT LAYOUT
-
-	const std::vector<D3D11_INPUT_ELEMENT_DESC> input_element_descriptors =
-	{
-		{ "Position", 0u, DXGI_FORMAT_R32G32_FLOAT, 0u, 0u, D3D11_INPUT_PER_VERTEX_DATA, 0u },
-		{ "Color", 0u, DXGI_FORMAT_R8G8B8A8_UNORM, 0u, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0u }
-	};
-
-	InputLayout input_layout(*this, input_element_descriptors, vertex_shader.getBlob());
-	input_layout.bindTo(*this);
 
 	// SOME CONTEXT SETTINGS
 
 	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), nullptr);
-
-	Topology topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	topology.bindTo(*this);
 
 	// VIEWPORT CONFIG
 
@@ -229,9 +169,8 @@ void Renderer::tryStuff(float delta_time)
 	_device_context->RSSetViewports(1u, &viewport);
 
 	// DRAW!
-
-	//_device_context->Draw((UINT)(sizeof(vertices) / sizeof(Vertex)), 0u);
-	_device_context->DrawIndexed(index_buffer.getIndicesNumber(), 0u, 0u);
+	quad1.draw(*this);
+	quad2.draw(*this);
 }
 
 
