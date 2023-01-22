@@ -5,14 +5,6 @@
 #include "DirectXThrowMacros.h"
 #include <sstream>
 #include <DirectXMath.h>
-#include "Bindables/VertexBuffer.h"
-#include "Bindables/IndexBuffer.h"
-#include "Bindables/VertexShader.h"
-#include "Bindables/PixelShader.h"
-#include "Bindables/Topology.h"
-#include "Bindables/ConstantBuffers.h"
-#include "Bindables/InputLayout.h"
-
 #include "Drawables/Quad.h"
 #include "Drawables/Circle.h"
 
@@ -77,6 +69,8 @@ Renderer::Renderer(HWND h_window)
 	depth_state_descriptor.DepthEnable     = TRUE;
 	depth_state_descriptor.DepthWriteMask  = D3D11_DEPTH_WRITE_MASK_ALL;
 	depth_state_descriptor.DepthFunc       = D3D11_COMPARISON_LESS;
+	depth_state_descriptor.StencilEnable   = FALSE;
+
 
 	THROW_IF_FAILED(_device->CreateDepthStencilState(&depth_state_descriptor, &depth_state));
 
@@ -105,6 +99,16 @@ Renderer::Renderer(HWND h_window)
 	THROW_IF_FAILED(_device->CreateDepthStencilView(depth_texture.Get(), &depth_view_descriptor, &_depth_view));
 
 	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), _depth_view.Get());
+
+	D3D11_VIEWPORT viewport = { };
+	viewport.Width     = 800.f;
+	viewport.Height    = 800.f;
+	viewport.MinDepth  = 0.f;
+	viewport.MaxDepth  = 1.f;
+	viewport.TopLeftX  = 0.f;
+	viewport.TopLeftY  = 0.f;
+
+	_device_context->RSSetViewports(1u, &viewport);
 }
 
 
@@ -123,6 +127,9 @@ void Renderer::present()
 			throw Renderer::Exception(__LINE__, __FILE__, h_result);
 		}
 	}
+
+	// DXGI_SWAP_EFFECT_FLIP_DISCARD unbinds the render target, so we must rebound it for the next Present.
+	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), _depth_view.Get());
 }
 
 
@@ -152,22 +159,7 @@ void Renderer::tryStuff(float delta_time)
 	static Quad quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
 	static Quad quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
 
-	static Circle circle(*this, 0.f, 0.f, 0.125f, {0, 130, 0, 255}, {255, 255, 255, 255});
-
-
-	// SOME SETTINGS
-
-	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), nullptr);
-
-	D3D11_VIEWPORT viewport = { };
-	viewport.Width     = 800.f;
-	viewport.Height    = 800.f;
-	viewport.MinDepth  = 0.f;
-	viewport.MaxDepth  = 1.f;
-	viewport.TopLeftX  = 0.f;
-	viewport.TopLeftY  = 0.f;
-
-	_device_context->RSSetViewports(1u, &viewport);
+	static Circle circle(*this, 0.f, -0.33f, 0.125f, {0, 130, 0, 255}, {255, 255, 255, 255});
 
 	// UPDATING
 
@@ -178,6 +170,7 @@ void Renderer::tryStuff(float delta_time)
 	quad2.setPosition(quad2.getPositionX(), quad2.getPositionY() + displacement);
 
 	// DRAW!
+
 	quad1.draw(*this);
 	quad2.draw(*this);
 	circle.draw(*this);

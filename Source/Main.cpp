@@ -7,6 +7,7 @@
 
 using chrono_clock = std::chrono::steady_clock;
 using chrono_float = std::chrono::duration<float, std::chrono::seconds::period>;
+using chrono_double = std::chrono::duration<double, std::chrono::seconds::period>;
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -15,7 +16,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		Application app(800, 800, "Arkanoid X");
 
-		auto prev_frame = chrono_clock::now();
+		const auto start_time = chrono_clock::now();
+		auto prev_frame = start_time;
 
 		MSG message;
 		bool running = true;
@@ -34,9 +36,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 			auto elapsed_time = chrono_clock::now() - prev_frame;
 			prev_frame = chrono_clock::now();
-			float seconds_elapsed = std::chrono::duration_cast<chrono_float>(elapsed_time).count();
+			auto total_elapsed_time = chrono_clock::now() - start_time;
 
-			app.processFrame(seconds_elapsed);
+			float seconds_elapsed = std::chrono::duration_cast<chrono_float>(elapsed_time).count();
+			double seconds_since_start = std::chrono::duration_cast<chrono_double>(total_elapsed_time).count();
+
+			app.processFrame(seconds_since_start, seconds_elapsed);
 		}
 
 		return message.wParam;
