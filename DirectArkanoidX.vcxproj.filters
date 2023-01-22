@@ -22,6 +22,7 @@
     <ClInclude Include="Headers\Bindables\InputLayout.h" />
     <ClInclude Include="Headers\Drawables\Quad.h" />
     <ClInclude Include="Headers\Drawables\DrawableStatics.h" />
+    <ClInclude Include="Headers\Drawables\Circle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Source\Bindables\PixelShader.cpp" />
     <ClCompile Include="Source\Bindables\InputLayout.cpp" />
     <ClCompile Include="Source\Drawables\Quad.cpp" />
+    <ClCompile Include="Source\Drawables\Circle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />

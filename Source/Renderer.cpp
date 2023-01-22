@@ -14,6 +14,7 @@
 #include "Bindables/InputLayout.h"
 
 #include "Drawables/Quad.h"
+#include "Drawables/Circle.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -151,6 +152,8 @@ void Renderer::tryStuff(float delta_time)
 	static Quad quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
 	static Quad quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
 
+	static Circle circle(*this, 0.f, 0.f, 0.125f, {0, 130, 0, 255}, {255, 255, 255, 255});
+
 
 	// SOME SETTINGS
 
@@ -177,6 +180,7 @@ void Renderer::tryStuff(float delta_time)
 	// DRAW!
 	quad1.draw(*this);
 	quad2.draw(*this);
+	circle.draw(*this);
 }
 
 

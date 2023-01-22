@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Drawables\Circle.h" />
     <ClInclude Include="DxErr\dxerr.h" />
     <ClInclude Include="Headers\Application.h" />
     <ClInclude Include="Headers\Bindables\Bindable.h" />
@@ -42,6 +43,7 @@
     <ClInclude Include="Headers\Bindables\ConstantBuffers.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Drawables\Circle.cpp" />
     <ClCompile Include="DxErr\dxerr.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\Bindables\Bindable.cpp" />
