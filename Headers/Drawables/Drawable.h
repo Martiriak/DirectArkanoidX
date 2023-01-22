@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 #include "Bindables/ConstantBuffers.h"
+#include "Vector2.h"
 
 
 class IBindable;
@@ -34,7 +35,7 @@ public:
 
 protected:
 
-	struct { float x, y; } position = { 0.f, 0.f };
+	Vector2 position;
 
 	virtual const std::vector<std::unique_ptr<IBindable>>& getStaticBinds() const noexcept = 0;
 

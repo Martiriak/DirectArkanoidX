@@ -12,13 +12,12 @@
 
 Quad::Quad(Renderer& renderer, float center_point_x, float center_point_y, float width, float height, const Color& color)
 {
-	position.x = center_point_x;
-	position.y = center_point_y;
+	position = { center_point_x, center_point_y };
 
-	const Vertex upper_left = { -width / 2.f, height / 2.f, {color} };
-	const Vertex downer_right = { width / 2.f, -height / 2.f, {color} };
-	const Vertex upper_right = { downer_right.position.x, upper_left.position.y, {color} };
-	const Vertex downer_left = { upper_left.position.x, downer_right.position.y, {color} };
+	const Vertex upper_left = { {-width / 2.f, height / 2.f}, {color} };
+	const Vertex downer_right = { {width / 2.f, -height / 2.f}, {color} };
+	const Vertex upper_right = { {downer_right.position.x, upper_left.position.y}, {color} };
+	const Vertex downer_left = { {upper_left.position.x, downer_right.position.y}, {color} };
 
 	const std::vector<Vertex> vertices = { upper_left, upper_right, downer_left, downer_right };
 

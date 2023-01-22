@@ -18,8 +18,7 @@ Circle::Circle(Renderer& renderer, float center_x, float center_y, float radius,
 {
 	static_assert(vertices_number > 2, "vertices_number must be greater than 2.");
 
-	position.x = center_x;
-	position.y = center_y;
+	position = { center_x, center_y };
 
 	// Make Vertices //
 
@@ -33,11 +32,11 @@ Circle::Circle(Renderer& renderer, float center_x, float center_y, float radius,
 			const float x = radius * DirectX::XMScalarSin(angle_between_points * vertex_index);
 			const float y = radius * DirectX::XMScalarCos(angle_between_points * vertex_index);
 
-			vertices.push_back({ x, y, {color} });
+			vertices.push_back({ {x, y}, {color} });
 		}
 	}
 
-	vertices.push_back({ 0.f, 0.f, {center_color} });
+	vertices.push_back({ {0.f, 0.f}, {center_color} });
 
 	addBind(std::make_unique<VertexBuffer>(renderer, vertices));
 

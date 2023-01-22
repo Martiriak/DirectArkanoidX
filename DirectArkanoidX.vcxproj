@@ -37,6 +37,7 @@
     <ClInclude Include="Headers\Drawables\Drawable.h" />
     <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\Renderer.h" />
+    <ClInclude Include="Headers\Vector2.h" />
     <ClInclude Include="Headers\Vertex.h" />
     <ClInclude Include="Headers\Window.h" />
     <ClInclude Include="Headers\Windows_Fixed.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="Source\Keyboard.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\Vector2.cpp" />
     <ClCompile Include="Source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>

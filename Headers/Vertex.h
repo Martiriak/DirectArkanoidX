@@ -2,12 +2,12 @@
 
 #pragma once
 
+#include "Vector2.h"
 #include "Color.h"
 
 
-struct Vertex
+struct Vertex final
 {
-	struct { float x, y; } position;
-
+	Vector2 position;
 	Color color;
 };
