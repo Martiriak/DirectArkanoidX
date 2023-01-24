@@ -33,6 +33,8 @@ public:
 
 	inline void updatePositionUsingVelocity(float delta_time) noexcept { position = position + (velocity * delta_time); }
 
+	virtual void handleCollision() noexcept = 0;
+
 protected:
 
 	virtual const std::vector<std::unique_ptr<IBindable>>& getStaticBinds() const noexcept = 0;

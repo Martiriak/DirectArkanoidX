@@ -1,6 +1,6 @@
 // Alessandro Pegoraro - Graphics Programming
 
-#include "Drawables/Circle.h"
+#include "Drawables/Ball.h"
 #include "Vertex.h"
 #include "Bindables/VertexBuffer.h"
 #include "Bindables/IndexBuffer.h"
@@ -11,10 +11,10 @@
 #include "Bindables/ConstantBuffers.h"
 
 
-Circle::Circle(Renderer& renderer, float center_x, float center_y, float radius, const Color& color)
-	: Circle(renderer, center_x, center_y, radius, color, color) { }
+Ball::Ball(Renderer& renderer, float center_x, float center_y, float radius, const Color& color)
+	: Ball(renderer, center_x, center_y, radius, color, color) { }
 
-Circle::Circle(Renderer& renderer, float center_x, float center_y, float radius, const struct Color& color, const struct Color& center_color)
+Ball::Ball(Renderer& renderer, float center_x, float center_y, float radius, const struct Color& color, const struct Color& center_color)
 {
 	static_assert(vertices_number > 2, "vertices_number must be greater than 2.");
 
@@ -79,4 +79,10 @@ Circle::Circle(Renderer& renderer, float center_x, float center_y, float radius,
 		addStaticBind(std::make_unique<InputLayout>(renderer, input_element_descriptors, vertex_shader_bytecode));
 		addStaticBind(std::make_unique<Topology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	}
+}
+
+
+void Ball::handleCollision() noexcept
+{
+
 }

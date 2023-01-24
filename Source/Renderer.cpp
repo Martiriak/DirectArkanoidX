@@ -5,8 +5,9 @@
 #include "DirectXThrowMacros.h"
 #include <sstream>
 #include <DirectXMath.h>
-#include "Drawables/Quad.h"
-#include "Drawables/Circle.h"
+#include "Drawables/DestructibleBlock.h"
+#include "Drawables/Paddle.h"
+#include "Drawables/Ball.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -156,10 +157,10 @@ void Renderer::tryStuff(float delta_time)
 
 	HRESULT h_result;
 
-	static Quad quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
-	static Quad quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
+	static DestructibleBlock quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
+	static Paddle quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
 
-	static Circle circle(*this, 0.f, -0.33f, 0.125f, {0, 130, 0, 255}, {255, 255, 255, 255});
+	static Ball circle(*this, 0.f, -0.33f, 0.125f, {0, 130, 0, 255}, {255, 255, 255, 255});
 
 	// UPDATING
 
