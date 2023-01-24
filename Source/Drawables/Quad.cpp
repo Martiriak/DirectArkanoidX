@@ -53,9 +53,3 @@ Quad::Quad(Renderer& renderer, float center_point_x, float center_point_y, float
 		setIndexFromStatic();
 	}
 }
-
-
-void Quad::update(double total_time_passed, float delta_time) noexcept
-{
-	_rotation_angle = delta_time;
-}

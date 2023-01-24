@@ -166,8 +166,8 @@ void Renderer::tryStuff(float delta_time)
 	float displacement = 0.001f;
 	if ((int) time_elapsed % 2 != 0) displacement = -displacement;
 
-	quad1.setPosition(quad1.getPositionX() + displacement, quad1.getPositionY());
-	quad2.setPosition(quad2.getPositionX(), quad2.getPositionY() + displacement);
+	quad1.position.x += displacement;
+	quad2.position.y += displacement;
 
 	// DRAW!
 

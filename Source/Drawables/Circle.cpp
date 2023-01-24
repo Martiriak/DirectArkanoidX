@@ -80,8 +80,3 @@ Circle::Circle(Renderer& renderer, float center_x, float center_y, float radius,
 		addStaticBind(std::make_unique<Topology>(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	}
 }
-
-void Circle::update(double total_time_passed, float delta_time) noexcept
-{
-
-}
