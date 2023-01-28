@@ -16,7 +16,12 @@ public:
 
 	Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& top_left_color, const Color& down_right_color);
 
+
+	inline float getWidth() const noexcept { return _width; }
+	inline float getHeight() const noexcept { return _height; }
+
 private:
 	
-
+	float _width;
+	float _height;
 };

@@ -11,12 +11,17 @@ class Ball : public DrawableStatics<Ball>
 {
 public:
 
-	Ball(Renderer& renderer, Vector2 center, float radius, const struct Color& color);
+	inline Ball(Renderer& renderer, Vector2 center, float radius, const struct Color& color)
+		: Ball(renderer, center, radius, color, color) { }
 	Ball(Renderer& renderer, Vector2 center, float radius, const struct Color& color, const struct Color& center_color);
 
 	virtual void handleCollision() noexcept override;
 
+	inline float getRadius() const noexcept { return _radius; }
+
 private:
+
+	float _radius;
 
 	static constexpr unsigned int vertices_number = 12;
 };

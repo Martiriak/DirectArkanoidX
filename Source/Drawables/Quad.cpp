@@ -11,6 +11,7 @@
 
 
 Quad::Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& top_left_color, const Color& down_right_color)
+	: _width(width), _height(height)
 {
 	position = center_point;
 

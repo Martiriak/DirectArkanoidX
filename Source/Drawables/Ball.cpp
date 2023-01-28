@@ -11,10 +11,8 @@
 #include "Bindables/ConstantBuffers.h"
 
 
-Ball::Ball(Renderer& renderer, Vector2 center, float radius, const Color& color)
-	: Ball(renderer, center, radius, color, color) { }
-
 Ball::Ball(Renderer& renderer, Vector2 center, float radius, const struct Color& color, const struct Color& center_color)
+	: _radius(radius)
 {
 	static_assert(vertices_number > 2, "vertices_number must be greater than 2.");
 

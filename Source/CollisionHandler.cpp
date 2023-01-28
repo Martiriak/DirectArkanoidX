@@ -7,7 +7,20 @@ namespace
 {
 	bool areIntersecting(const Ball& ball, const Quad& quad)
 	{
-		return false;
+		const float squared_radius = ball.getRadius() * ball.getRadius();
+		const Vector2 ball_to_quad = quad.position - ball.position;
+
+		if (squared_radius >= ball_to_quad.getSquaredLenght()) return true;
+
+		const Vector2 plus_width_plus_height    = { ball_to_quad.x + quad.getWidth(), ball_to_quad.y + quad.getHeight() };
+		const Vector2 plus_width_minus_height   = { ball_to_quad.x + quad.getWidth(), ball_to_quad.y - quad.getHeight() };
+		const Vector2 minus_width_plus_height   = { ball_to_quad.x - quad.getWidth(), ball_to_quad.y + quad.getHeight() };
+		const Vector2 minus_width_minus_height  = { ball_to_quad.x - quad.getWidth(), ball_to_quad.y - quad.getHeight() };
+
+		return squared_radius == plus_width_plus_height.getSquaredLenght()
+			|| squared_radius == plus_width_minus_height.getSquaredLenght()
+			|| squared_radius == minus_width_plus_height.getSquaredLenght()
+			|| squared_radius == minus_width_minus_height.getSquaredLenght();
 	}
 
 	inline bool isOutOfBounds(const Vector2& grid_pos)
@@ -63,6 +76,11 @@ bool CollisionHandler::checkForCollisions()
 				it = _collidable_blocks_in_grid.erase(it);
 			}
 		}
+
+		if (_ball->position.x > 1.f) _ball->handleCollision();
+		if (_ball->position.x < -1.f) _ball->handleCollision();
+		if (_ball->position.y > 1.f) _ball->handleCollision();
+		if (_ball->position.y < -1.f) _ball->handleCollision(); // This is game over!
 	}
 
 	for (auto& candidate : _new_candidates_for_collision)
