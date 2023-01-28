@@ -18,8 +18,8 @@ public:
 	Window window;
 
 
-	static constexpr int grid_dim_X = 6;
-	static constexpr int grid_dim_Y = 5;
+	static constexpr int grid_dim_X = 8;
+	static constexpr int grid_dim_Y = 10;
 
 
 	Application() = delete;

@@ -8,8 +8,8 @@
 Application::Application(int window_width, int window_height, LPCSTR window_name)
 	: window(window_width, window_height, window_name)
 {
-	const float blocks_height = 0.1f;
-	const float blocks_width = 0.3f;
+	const float blocks_height = 0.075f;
+	const float blocks_width = 0.25f;
 	const Vector2 base_point = { -1.f + blocks_width * 0.5f, 1.f - blocks_height * 0.5f };
 	const float offset_x = (2.f - blocks_width) / (grid_dim_X - 1);
 	const float offset_y = blocks_height;
