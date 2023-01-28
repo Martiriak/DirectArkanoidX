@@ -1,6 +1,7 @@
 // Alessandro Pegoraro - Graphics Programming
 
 #pragma once
+#include <functional>
 
 
 struct Vector2 final
@@ -30,6 +31,10 @@ struct Vector2 final
 
 	float getLenght() const;
 	inline float getSquaredLenght() const { return dot(*this, *this); }
+
+
+	friend bool operator== (const Vector2& left_side, const Vector2& right_side);
+	friend bool operator!= (const Vector2& left_side, const Vector2& right_side);
 
 
 	static inline Vector2 zero() { return Vector2(0.f); }
@@ -88,4 +93,25 @@ inline Vector2 operator/ (const Vector2& vector, float scalar)
 inline float operator* (const Vector2& right_side, const Vector2& left_side)
 {
 	return Vector2::dot(right_side, left_side);
+}
+
+
+
+
+
+namespace std
+{
+	template<>
+	struct hash<Vector2>
+	{
+		size_t operator() (const Vector2& input) const noexcept
+		{
+			hash<float> float_hasher = {};
+
+			size_t h1 = float_hasher(input.x);
+			size_t h2 = float_hasher(input.y);
+
+			return h1 ^ (h2 << 1);
+		}
+	};
 }

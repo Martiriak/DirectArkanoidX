@@ -26,6 +26,7 @@
     <ClInclude Include="Headers\Vector2.h" />
     <ClInclude Include="Headers\Drawables\DestructibleBlock.h" />
     <ClInclude Include="Headers\Drawables\Paddle.h" />
+    <ClInclude Include="Headers\CollisionHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />
@@ -49,6 +50,7 @@
     <ClCompile Include="Source\Drawables\DestructibleBlock.cpp" />
     <ClCompile Include="Source\Drawables\Paddle.cpp" />
     <ClCompile Include="Source\Color.cpp" />
+    <ClCompile Include="Source\CollisionHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />

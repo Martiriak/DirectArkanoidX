@@ -3,6 +3,7 @@
 #include "Vector2.h"
 #include <cmath>
 #include <cassert>
+#include <DirectXMath.h>
 
 
 Vector2& Vector2::operator+=(const Vector2& that)
@@ -66,6 +67,15 @@ float Vector2::getLenght() const
 {
 	return std::sqrt(getSquaredLenght());
 }
+
+
+bool operator== (const Vector2& left_side, const Vector2& right_side)
+{
+	return DirectX::XMScalarNearEqual(left_side.x, right_side.x, 0.0000001f)
+		&& DirectX::XMScalarNearEqual(left_side.y, right_side.y, 0.0000001f);
+}
+
+bool operator!= (const Vector2& left_side, const Vector2& right_side) { return !(left_side == right_side); }
 
 
 float Vector2::dot(const Vector2& right_side, const Vector2& left_side)
