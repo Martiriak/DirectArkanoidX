@@ -11,7 +11,10 @@ class Quad : public DrawableStatics<Quad>
 {
 public:
 
-	Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& color);
+	inline Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& color)
+		: Quad(renderer, center_point, width, height, color, color) { }
+
+	Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& top_left_color, const Color& down_right_color);
 
 private:
 	

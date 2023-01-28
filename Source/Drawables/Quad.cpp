@@ -10,14 +10,14 @@
 #include "Bindables/ConstantBuffers.h"
 
 
-Quad::Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& color)
+Quad::Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& top_left_color, const Color& down_right_color)
 {
 	position = center_point;
 
-	const Vertex upper_left = { {-width / 2.f, height / 2.f}, {color} };
-	const Vertex downer_right = { {width / 2.f, -height / 2.f}, {color} };
-	const Vertex upper_right = { {downer_right.position.x, upper_left.position.y}, {color} };
-	const Vertex downer_left = { {upper_left.position.x, downer_right.position.y}, {color} };
+	const Vertex upper_left = { {-width / 2.f, height / 2.f}, {top_left_color} };
+	const Vertex downer_right = { {width / 2.f, -height / 2.f}, {down_right_color} };
+	const Vertex upper_right = { {downer_right.position.x, upper_left.position.y}, Color::lerp(top_left_color, down_right_color, 0.5f) };
+	const Vertex downer_left = { {upper_left.position.x, downer_right.position.y}, Color::lerp(top_left_color, down_right_color, 0.5f) };
 
 	const std::vector<Vertex> vertices = { upper_left, upper_right, downer_left, downer_right };
 

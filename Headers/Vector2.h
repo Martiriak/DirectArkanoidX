@@ -38,6 +38,7 @@ struct Vector2 final
 	static inline Vector2 up() { return Vector2(0.f, 1.f); }
 
 	static float dot(const Vector2& right_side, const Vector2& left_side);
+	static Vector2 lerp(const Vector2& right_side, const Vector2& left_side, float t);
 };
 
 

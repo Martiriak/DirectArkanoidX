@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Vector2.cpp" />
     <ClCompile Include="Source\Drawables\DestructibleBlock.cpp" />
     <ClCompile Include="Source\Drawables\Paddle.cpp" />
+    <ClCompile Include="Source\Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\VertexShader.hlsl" />

@@ -23,12 +23,13 @@ Application::Application(int window_width, int window_height, LPCSTR window_name
 				base_point + Vector2{ offset_x * x, -offset_y * y },
 				blocks_width,
 				blocks_height,
-				Color{255, 255, 255, 255}
+				Color::white(),
+				Color::gray()
 			);
 		}
 
-	_ball = std::make_unique<Ball>(window.getRenderer(), Vector2{0.f, -0.33f}, 0.025f, Color{ 0, 0, 255, 255 });
-	_paddle = std::make_unique<Paddle>(window.getRenderer(), Vector2{ 0.f, -0.9f }, 0.5f, 0.1f, Color{ 0, 255, 0, 255 });
+	_ball = std::make_unique<Ball>(window.getRenderer(), Vector2{0.f, -0.33f}, 0.025f, Color::orange());
+	_paddle = std::make_unique<Paddle>(window.getRenderer(), Vector2{ 0.f, -0.9f }, 0.5f, 0.1f, Color::cyan(), Color::magenta());
 
 	for (const auto& row : _blocks_grid)
 		for (const auto& block : row)

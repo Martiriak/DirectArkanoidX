@@ -46,6 +46,7 @@
     <ClInclude Include="Headers\Bindables\ConstantBuffers.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\Drawables\Ball.cpp" />
     <ClCompile Include="DxErr\dxerr.cpp" />
     <ClCompile Include="Source\Application.cpp" />
