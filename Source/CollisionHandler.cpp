@@ -33,7 +33,7 @@ namespace
 using grid_cell = std::pair<Vector2, DestructibleBlock*>;
 
 
-CollisionHandler::CollisionHandler(const BlocksGrid& blocks_grid, Ball& ball, Paddle& paddle)
+CollisionHandler::CollisionHandler(BlocksGrid& blocks_grid, Ball& ball, Paddle& paddle)
 	: _grid(&blocks_grid), _ball(&ball), _paddle(&paddle)
 {
 	const int last_row_index = blocks_grid.size() - 1;
@@ -51,8 +51,8 @@ bool CollisionHandler::checkForCollisions()
 {
 	if (areIntersecting(*_ball, *_paddle))
 	{
-		_ball->handleCollision();
-		_paddle->handleCollision();
+		_ball->handleCollision(Vector2::up());
+		_paddle->handleCollision(_ball->velocity.getNormalized());
 	}
 	else 
 	{
@@ -60,10 +60,10 @@ bool CollisionHandler::checkForCollisions()
 
 		while (it != _collidable_blocks_in_grid.end())
 		{
-			if (areIntersecting(*_ball, *it->second))
+			if (it->second != nullptr && areIntersecting(*_ball, *it->second))
 			{
-				_ball->handleCollision();
-				it->second->handleCollision();
+				_ball->handleCollision(-Vector2::up());
+				it->second->handleCollision(_ball->velocity.getNormalized());
 
 				const Vector2 left_block = it->first - Vector2::right();
 				const Vector2 right_block = it->first + Vector2::right();
@@ -77,15 +77,15 @@ bool CollisionHandler::checkForCollisions()
 			}
 		}
 
-		if (_ball->position.x > 1.f) _ball->handleCollision();
-		if (_ball->position.x < -1.f) _ball->handleCollision();
-		if (_ball->position.y > 1.f) _ball->handleCollision();
-		if (_ball->position.y < -1.f) _ball->handleCollision(); // This is game over!
+		if (_ball->position.x > 1.f) _ball->handleCollision(-Vector2::right());
+		if (_ball->position.x < -1.f) _ball->handleCollision(Vector2::right());
+		if (_ball->position.y > 1.f) _ball->handleCollision(-Vector2::up());
+		if (_ball->position.y < -1.f) _ball->handleCollision(Vector2::up()); // This is game over!
 	}
 
 	for (auto& candidate : _new_candidates_for_collision)
 	{
-		if (!isOutOfBounds(candidate.first))
+		if (!isOutOfBounds(candidate.first) && candidate.second != nullptr)
 		{
 			_collidable_blocks_in_grid.insert(candidate);
 		}

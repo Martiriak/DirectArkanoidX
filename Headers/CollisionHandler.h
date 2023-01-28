@@ -16,7 +16,7 @@ public:
 
 	using BlocksGrid = std::array<std::array<std::unique_ptr<DestructibleBlock>, Application::grid_dim_Y>, Application::grid_dim_X>;
 
-	CollisionHandler(const BlocksGrid& blocks_grid, Ball& ball, Paddle& paddle);
+	CollisionHandler(BlocksGrid& blocks_grid, Ball& ball, Paddle& paddle);
 
 	bool checkForCollisions();
 
@@ -26,6 +26,6 @@ private:
 	Ball* _ball;
 	Paddle* _paddle;
 
-	const BlocksGrid* _grid;
+	BlocksGrid* _grid;
 	std::vector<std::pair<Vector2, DestructibleBlock*>> _new_candidates_for_collision;
 };

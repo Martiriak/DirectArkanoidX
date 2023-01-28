@@ -3,7 +3,7 @@
 #include "Drawables/Paddle.h"
 
 
-void Paddle::handleCollision() noexcept
+void Paddle::handleCollision(Vector2 surface_normal) noexcept
 {
 
 }

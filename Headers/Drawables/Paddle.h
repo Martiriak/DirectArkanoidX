@@ -12,7 +12,7 @@ public:
 	using Quad::Quad;
 
 
-	virtual void handleCollision() noexcept override;
+	virtual void handleCollision(Vector2 surface_normal) noexcept override;
 
 private:
 

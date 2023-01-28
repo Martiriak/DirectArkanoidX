@@ -33,7 +33,7 @@ public:
 
 	inline void updatePositionUsingVelocity(float delta_time) noexcept { position = position + (velocity * delta_time); }
 
-	virtual void handleCollision() noexcept = 0;
+	virtual void handleCollision(Vector2 surface_normal) noexcept = 0;
 
 protected:
 

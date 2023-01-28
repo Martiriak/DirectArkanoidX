@@ -3,7 +3,7 @@
 #include "Drawables/DestructibleBlock.h"
 
 
-void DestructibleBlock::handleCollision() noexcept
+void DestructibleBlock::handleCollision(Vector2 surface_normal) noexcept
 {
 	
 }

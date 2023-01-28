@@ -15,7 +15,7 @@ public:
 		: Ball(renderer, center, radius, color, color) { }
 	Ball(Renderer& renderer, Vector2 center, float radius, const struct Color& color, const struct Color& center_color);
 
-	virtual void handleCollision() noexcept override;
+	virtual void handleCollision(Vector2 surface_normal) noexcept override;
 
 	inline float getRadius() const noexcept { return _radius; }
 
