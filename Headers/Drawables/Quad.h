@@ -3,14 +3,15 @@
 #pragma once
 
 #include "Drawables/DrawableStatics.h"
-#include "Vertex.h"
+#include "Vector2.h"
+#include "Color.h"
 
 
 class Quad : public DrawableStatics<Quad>
 {
 public:
 
-	Quad(Renderer& renderer, float center_point_x, float center_point_y, float width, float height, const Color& color);
+	Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& color);
 
 private:
 	

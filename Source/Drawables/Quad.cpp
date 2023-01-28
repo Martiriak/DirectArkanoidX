@@ -10,9 +10,9 @@
 #include "Bindables/ConstantBuffers.h"
 
 
-Quad::Quad(Renderer& renderer, float center_point_x, float center_point_y, float width, float height, const Color& color)
+Quad::Quad(Renderer& renderer, Vector2 center_point, float width, float height, const Color& color)
 {
-	position = { center_point_x, center_point_y };
+	position = center_point;
 
 	const Vertex upper_left = { {-width / 2.f, height / 2.f}, {color} };
 	const Vertex downer_right = { {width / 2.f, -height / 2.f}, {color} };

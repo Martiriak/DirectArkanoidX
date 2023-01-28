@@ -11,14 +11,14 @@
 #include "Bindables/ConstantBuffers.h"
 
 
-Ball::Ball(Renderer& renderer, float center_x, float center_y, float radius, const Color& color)
-	: Ball(renderer, center_x, center_y, radius, color, color) { }
+Ball::Ball(Renderer& renderer, Vector2 center, float radius, const Color& color)
+	: Ball(renderer, center, radius, color, color) { }
 
-Ball::Ball(Renderer& renderer, float center_x, float center_y, float radius, const struct Color& color, const struct Color& center_color)
+Ball::Ball(Renderer& renderer, Vector2 center, float radius, const struct Color& color, const struct Color& center_color)
 {
 	static_assert(vertices_number > 2, "vertices_number must be greater than 2.");
 
-	position = { center_x, center_y };
+	position = center;
 
 	// Make Vertices //
 

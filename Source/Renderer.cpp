@@ -149,34 +149,6 @@ void Renderer::clearBuffer(float red, float green, float blue)
 
 
 
-void Renderer::tryStuff(float delta_time)
-{
-	static float time_elapsed = 0.f;
-
-	time_elapsed += delta_time;
-
-	HRESULT h_result;
-
-	static DestructibleBlock quad1(*this, 0.25f, 0.25f, 1.f, 0.75f, { 0, 255, 255, 255 });
-	static Paddle quad2(*this, -0.75f, -0.5f, 0.25f, 0.5f, { 255, 0, 0, 255 });
-
-	static Ball circle(*this, 0.f, -0.33f, 0.125f, {0, 130, 0, 255}, {255, 255, 255, 255});
-
-	// UPDATING
-
-	float displacement = 0.001f;
-	if ((int) time_elapsed % 2 != 0) displacement = -displacement;
-
-	quad1.position.x += displacement;
-	quad2.position.y += displacement;
-
-	// DRAW!
-
-	quad1.draw(*this);
-	quad2.draw(*this);
-	circle.draw(*this);
-}
-
 
 ////// Renderer Exception //////
 
