@@ -20,10 +20,7 @@ public:
 
 private:
 
-	std::unordered_map<Vector2, DestructibleBlock*> _collidable_blocks_in_grid;
+	Grid::Type* _grid;
 	Ball* _ball;
 	Paddle* _paddle;
-
-	Grid::Type* _grid;
-	std::vector<std::pair<Vector2, DestructibleBlock*>> _new_candidates_for_collision;
 };
