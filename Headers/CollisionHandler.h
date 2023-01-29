@@ -7,15 +7,14 @@
 #include "Drawables/Ball.h"
 #include "Drawables/DestructibleBlock.h"
 #include "Drawables/Paddle.h"
+#include "Grid.h"
 
 
 class CollisionHandler
 {
 public:
 
-	using BlocksGrid = std::array<std::array<std::unique_ptr<DestructibleBlock>, 10>, 8>;
-
-	CollisionHandler(BlocksGrid& blocks_grid, Ball& ball, Paddle& paddle);
+	CollisionHandler(Grid::Type& blocks_grid, Ball& ball, Paddle& paddle);
 
 	bool checkForCollisions();
 
@@ -25,6 +24,6 @@ private:
 	Ball* _ball;
 	Paddle* _paddle;
 
-	BlocksGrid* _grid;
+	Grid::Type* _grid;
 	std::vector<std::pair<Vector2, DestructibleBlock*>> _new_candidates_for_collision;
 };

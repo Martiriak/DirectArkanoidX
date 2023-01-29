@@ -44,6 +44,7 @@ struct Vector2 final
 
 	static float dot(const Vector2& right_side, const Vector2& left_side);
 	static Vector2 lerp(const Vector2& right_side, const Vector2& left_side, float t);
+	static Vector2 reflect(const Vector2& to_reflect, Vector2 normal = up());
 };
 
 

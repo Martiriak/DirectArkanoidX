@@ -11,7 +11,7 @@ Application::Application(int window_width, int window_height, LPCSTR window_name
 	const float blocks_height = 0.075f;
 	const float blocks_width = 0.25f;
 	const Vector2 base_point = { -1.f + blocks_width * 0.5f, 1.f - blocks_height * 0.5f };
-	const float offset_x = (2.f - blocks_width) / (grid_dim_X - 1);
+	const float offset_x = (2.f - blocks_width) / (Grid::dim_Y - 1);
 	const float offset_y = blocks_height;
 
 	for (int x = 0; x < _blocks_grid.size(); ++x)
@@ -33,7 +33,7 @@ Application::Application(int window_width, int window_height, LPCSTR window_name
 
 	_collision_handler = std::make_unique<CollisionHandler>(_blocks_grid, *_ball, *_paddle);
 
-	_ball->velocity = { 0.f, 0.5f };
+	_ball->velocity = Vector2{ -0.5f, 0.5f }.getNormalized() * 2.f;
 }
 
 
@@ -51,7 +51,7 @@ void Application::processFrame(double time_since_start, float delta_time)
 		{
 			if (block)
 			{
-				block->updatePositionUsingVelocity(delta_time);
+				//block->updatePositionUsingVelocity(delta_time);
 				block->draw(window.getRenderer());
 			}
 		}

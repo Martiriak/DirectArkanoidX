@@ -93,3 +93,10 @@ Vector2 Vector2::lerp(const Vector2& right_side, const Vector2& left_side, float
 		right_side.y + t * (left_side.y - right_side.y)
 	};
 }
+
+Vector2 Vector2::reflect(const Vector2& to_reflect, Vector2 normal /*= up()*/)
+{
+	normal.normalize();
+
+	return to_reflect - (2 * dot(to_reflect, normal) * normal);
+}

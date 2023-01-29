@@ -27,6 +27,7 @@
     <ClInclude Include="Headers\Drawables\DestructibleBlock.h" />
     <ClInclude Include="Headers\Drawables\Paddle.h" />
     <ClInclude Include="Headers\CollisionHandler.h" />
+    <ClInclude Include="Headers\Grid.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Main.cpp" />

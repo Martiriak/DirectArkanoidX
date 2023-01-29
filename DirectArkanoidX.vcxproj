@@ -38,6 +38,7 @@
     <ClInclude Include="Headers\Drawables\Paddle.h" />
     <ClInclude Include="Headers\Drawables\Quad.h" />
     <ClInclude Include="Headers\Drawables\Drawable.h" />
+    <ClInclude Include="Headers\Grid.h" />
     <ClInclude Include="Headers\Keyboard.h" />
     <ClInclude Include="Headers\Renderer.h" />
     <ClInclude Include="Headers\Vector2.h" />

@@ -10,6 +10,7 @@
 #include "Drawables/DestructibleBlock.h"
 #include "Drawables/Paddle.h"
 #include "CollisionHandler.h"
+#include "Grid.h"
 
 
 class Application
@@ -18,11 +19,6 @@ public:
 
 	Window window;
 
-
-	static constexpr int grid_dim_X = 8;
-	static constexpr int grid_dim_Y = 10;
-
-
 	Application() = delete;
 	Application(int window_width, int window_height, LPCSTR window_name);
 
@@ -30,7 +26,7 @@ public:
 
 private:
 
-	std::array<std::array<std::unique_ptr<DestructibleBlock>, grid_dim_Y>, grid_dim_X> _blocks_grid;
+	Grid::Type _blocks_grid;
 	std::unique_ptr<Ball> _ball;
 	std::unique_ptr<Paddle> _paddle;
 
