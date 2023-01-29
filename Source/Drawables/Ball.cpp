@@ -82,5 +82,5 @@ Ball::Ball(Renderer& renderer, Vector2 center, float radius, const struct Color&
 
 void Ball::handleCollision(Vector2 surface_normal) noexcept
 {
-
+	velocity = -Vector2::up();
 }

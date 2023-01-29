@@ -9,6 +9,7 @@
 #include "Drawables/Ball.h"
 #include "Drawables/DestructibleBlock.h"
 #include "Drawables/Paddle.h"
+#include "CollisionHandler.h"
 
 
 class Application
@@ -29,8 +30,9 @@ public:
 
 private:
 
-	std::vector<Drawable*> _drawables;
 	std::array<std::array<std::unique_ptr<DestructibleBlock>, grid_dim_Y>, grid_dim_X> _blocks_grid;
 	std::unique_ptr<Ball> _ball;
 	std::unique_ptr<Paddle> _paddle;
+
+	std::unique_ptr<CollisionHandler> _collision_handler;
 };

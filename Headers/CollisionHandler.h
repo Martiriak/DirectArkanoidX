@@ -7,14 +7,13 @@
 #include "Drawables/Ball.h"
 #include "Drawables/DestructibleBlock.h"
 #include "Drawables/Paddle.h"
-#include "Application.h"
 
 
 class CollisionHandler
 {
 public:
 
-	using BlocksGrid = std::array<std::array<std::unique_ptr<DestructibleBlock>, Application::grid_dim_Y>, Application::grid_dim_X>;
+	using BlocksGrid = std::array<std::array<std::unique_ptr<DestructibleBlock>, 10>, 8>;
 
 	CollisionHandler(BlocksGrid& blocks_grid, Ball& ball, Paddle& paddle);
 
