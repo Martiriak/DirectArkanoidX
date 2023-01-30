@@ -10,13 +10,21 @@
 #include "Grid.h"
 
 
+enum class GameProgress
+{
+	Normal,
+	Lost,
+	Won
+};
+
+
 class CollisionHandler
 {
 public:
 
 	CollisionHandler(Grid::Type& blocks_grid, Ball& ball, Paddle& paddle);
 
-	bool checkForCollisions();
+	GameProgress checkForCollisions();
 
 private:
 

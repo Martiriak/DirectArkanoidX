@@ -41,9 +41,18 @@ void Application::processFrame(double time_since_start, float delta_time)
 {
 	window.getRenderer().clearBuffer(0.4f, 0.4f, 0.4f);
 
-	if (_collision_handler->checkForCollisions())
+	GameProgress progress = _collision_handler->checkForCollisions();
+
+	if (progress == GameProgress::Lost)
 	{
-		// You won!
+		MessageBox(nullptr, "You lost!", "LOSER", MB_OK | MB_ICONEXCLAMATION);
+		return;
+	}
+
+	if (progress == GameProgress::Won)
+	{
+		MessageBox(nullptr, "You won!", "WINNER", MB_OK | MB_ICONEXCLAMATION);
+		return;
 	}
 
 	for (const auto& row : _blocks_grid)

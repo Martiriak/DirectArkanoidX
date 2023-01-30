@@ -38,7 +38,7 @@ CollisionHandler::CollisionHandler(Grid::Type& blocks_grid, Ball& ball, Paddle& 
 { }
 
 
-bool CollisionHandler::checkForCollisions()
+GameProgress CollisionHandler::checkForCollisions()
 {
 	bool no_remaining_block = true;
 
@@ -72,8 +72,8 @@ bool CollisionHandler::checkForCollisions()
 		if (_ball->position.x > 1.f) _ball->handleCollision(-Vector2::right());
 		if (_ball->position.x < -1.f) _ball->handleCollision(Vector2::right());
 		if (_ball->position.y > 1.f) _ball->handleCollision(-Vector2::up());
-		if (_ball->position.y < -1.f) _ball->handleCollision(Vector2::up()); // This is game over!
+		if (_ball->position.y < -1.f) return GameProgress::Lost;
 	}
 
-	return no_remaining_block;
+	return no_remaining_block ? GameProgress::Won : GameProgress::Normal;
 }
