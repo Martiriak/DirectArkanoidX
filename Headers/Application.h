@@ -35,13 +35,13 @@ private:
 	bool _is_game_running = false;
 
 
-	static constexpr Vector2 _ball_default_position = { 0.f, -0.7f };
+	static constexpr Vector2 _ball_default_position = { 0.f, -0.8f };
 	static constexpr float _ball_radius = 0.025f;
 
 	static constexpr Vector2 _paddle_default_position = { 0.f, -0.9f };
 	static constexpr Vector2 _paddle_dimensions = { 0.45f, 0.05f };
 
-	static constexpr Vector2 _ball_velocity_direction = { -0.5f, 0.5f };
+	static constexpr Vector2 _ball_velocity_direction = { -0.3f, 0.7f };
 	static constexpr float _ball_speed = 1.5f;
 	static constexpr float _paddle_speed = 1.f;
 

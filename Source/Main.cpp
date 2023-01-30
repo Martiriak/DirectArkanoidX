@@ -16,6 +16,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		Application app(800, 800, "Arkanoid X");
 
+		MessageBox(nullptr, "Press Space to start the game!\nPress A or D to move the paddle left or right.", "Controls", MB_OK | MB_ICONINFORMATION);
+
 		const auto start_time = chrono_clock::now();
 		auto prev_frame = start_time;
 

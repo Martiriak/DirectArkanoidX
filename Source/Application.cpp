@@ -55,14 +55,14 @@ void Application::processFrame(double time_since_start, float delta_time)
 
 		if (progress == GameProgress::Lost)
 		{
-			MessageBox(nullptr, "You lost!", "LOSER", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(nullptr, "You lost!", "Unfortunate.", MB_OK | MB_ICONEXCLAMATION);
 			resetGame();
 			return;
 		}
 
 		if (progress == GameProgress::Won)
 		{
-			MessageBox(nullptr, "You won!", "WINNER", MB_OK | MB_ICONEXCLAMATION);
+			MessageBox(nullptr, "You won!", "Congratulations!", MB_OK | MB_ICONINFORMATION);
 			resetGame();
 			return;
 		}
@@ -80,7 +80,6 @@ void Application::processFrame(double time_since_start, float delta_time)
 		{
 			if (block)
 			{
-				//block->updatePositionUsingVelocity(delta_time);
 				block->draw(window.getRenderer());
 			}
 		}
