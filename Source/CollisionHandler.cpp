@@ -69,20 +69,33 @@ GameProgress CollisionHandler::checkForCollisions()
 				}
 			}
 
-		if (_ball->position.x > 1.f) _ball->handleCollision(-Vector2::right());
-		if (_ball->position.x < -1.f) _ball->handleCollision(Vector2::right());
-		if (_ball->position.y > 1.f) _ball->handleCollision(-Vector2::up());
+		if (_ball->position.x > 1.f)
+		{
+			_ball->position.x = 1.f - _ball->getRadius();
+			_ball->handleCollision(-Vector2::right());
+		}
+		if (_ball->position.x < -1.f)
+		{
+			_ball->position.x = -1.f + _ball->getRadius();
+			_ball->handleCollision(Vector2::right());
+		}
+		if (_ball->position.y > 1.f)
+		{
+			_ball->position.y = 1.f - _ball->getRadius();
+			_ball->handleCollision(-Vector2::up());
+		}
+
 		if (_ball->position.y < -1.f) return GameProgress::Lost;
 	}
 
 	if (_paddle->position.x - (_paddle->getWidth() * 0.5f) < -1.f)
 	{
-		_paddle->position = _paddle->position + Vector2{ 0.01f, 0.f };
+		_paddle->position.x = -1.f + (_paddle->getWidth() * 0.5f);
 		_paddle->velocity = Vector2::zero();
 	}
 	if (_paddle->position.x + (_paddle->getWidth() * 0.5f) > 1.f)
 	{
-		_paddle->position = _paddle->position - Vector2{ 0.01f, 0.f };
+		_paddle->position.x = 1.f - (_paddle->getWidth() * 0.5f);
 		_paddle->velocity = Vector2::zero();
 	}
 
