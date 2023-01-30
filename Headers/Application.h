@@ -41,6 +41,10 @@ private:
 	static constexpr Vector2 _paddle_default_position = { 0.f, -0.9f };
 	static constexpr Vector2 _paddle_dimensions = { 0.45f, 0.05f };
 
+	static constexpr Vector2 _ball_velocity_direction = { -0.5f, 0.5f };
+	static constexpr float _ball_speed = 1.5f;
+	static constexpr float _paddle_speed = 1.f;
+
 
 	void resetGame();
 };

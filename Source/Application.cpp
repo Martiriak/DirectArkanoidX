@@ -44,6 +44,13 @@ void Application::processFrame(double time_since_start, float delta_time)
 
 	if (_is_game_running)
 	{
+		if (window.keyboard.isKeyPressed('A'))
+			_paddle->velocity = -Vector2::right() * _paddle_speed;
+		else if (window.keyboard.isKeyPressed('D'))
+			_paddle->velocity = Vector2::right() * _paddle_speed;
+		else
+			_paddle->velocity = Vector2::zero();
+
 		GameProgress progress = _collision_handler->checkForCollisions();
 
 		if (progress == GameProgress::Lost)
@@ -62,7 +69,7 @@ void Application::processFrame(double time_since_start, float delta_time)
 	}
 	else
 	{
-		if (window.keyboard.isKeyPressed(' ')) startGame({ -0.5f, 0.5f }, 2.f);
+		if (window.keyboard.isKeyPressed(' ')) startGame(_ball_velocity_direction, _ball_speed);
 	}
 
 
