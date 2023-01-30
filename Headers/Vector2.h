@@ -9,9 +9,9 @@ struct Vector2 final
 	float x, y;
 
 
-	inline explicit Vector2() : Vector2(0.f) { }
-	inline explicit Vector2(float uniform) : x(uniform), y(uniform) { }
-	inline Vector2(float _x, float _y) : x(_x), y(_y) { }
+	inline explicit constexpr Vector2() : Vector2(0.f) { }
+	inline explicit constexpr Vector2(float uniform) : x(uniform), y(uniform) { }
+	inline constexpr Vector2(float _x, float _y) : x(_x), y(_y) { }
 
 
 	Vector2& operator+= (const Vector2& that);
