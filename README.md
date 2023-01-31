@@ -1,25 +1,25 @@
 # ArkanoidX
-This is a C++ DirectX 11 project made from the ground up, for a master course in graphics programming.
+This is a C++ DirectX 11 project made from the ground up, for a Graphics Programming course.
 The youtube tutorials of *ChiliTomatoNoodle* were taken as inspiration for the architecture and framework developed ([link to the playlist](https://www.youtube.com/watch?v=_4FArgOX1I4&list=PLqCJpWy5Fohd3S7ICFXwUomYW0Wv67pDD)).
 This is a very simple 2D Arkanoid-style game, where the objective is to destroy all boxes.
 
 # DirectX
-One of the objectives of this project was to abstract DirectX logic from game code as much as possible; this was achieved using the classes `Renderer`, `Drawable` and `Bindable`, and using *COM Smart Pointers* to simplify the management of COM resources.
+One of the objectives of this project was to abstract DirectX logic from game code as much as possible; this was achieved using the classes `Renderer`, `Drawable` and `IBindable`, and using *COM Smart Pointers* to simplify the management of COM resources.
 
 ## Renderer
 This class wraps the inizialization of DirectX `device`, `device context` and other general resources like *depth buffer* and *viewport*. It also exposes convinience methods and the draw and present functions for external classes to use.
 
-## Drawable & Bindable
+## Drawable & IBindable
 These two classes serves to integrate and abstract DirectX 11 logic with generalized game objects.
 
-### Bindable
-This class abstracts DirectX resources such as shaders, vertex, index and constant buffers, input layouts and so on. Through the use of getter methods, it can access the device and device context from the `Renderer` and use those to initialize itself.
+### IBindable
+This interface abstracts DirectX resources such as shaders, vertex, index and constant buffers, input layouts and so on. Through the use of getter methods, it can access the device and device context from the `Renderer` and use those to initialize itself.
 
-A `Bindable` needs to be bound to the `Renderer` in order to be used. To be bound means that the device context sets that particular resource represented by the `Bindable` class as current.
+A `IBindable` needs to be bound to the `Renderer` in order to be used. To be bound means that the device context sets that particular resource represented by the `IBindable` class as current.
 
 ### Drawable
 This class represents an entity with position and velocity that can be drawn by DirectX.
-It owns an vector of `Bindables` which binds to the `Renderer` and uses to draw itself.
+It owns an vector of `IBindables` which binds to the `Renderer` and uses to draw itself.
 
 It possesses two pointers to certain types of resources:
  - A pointer to a `IndexBuffer`, because it needs to know how many indices there are in order to draw.
