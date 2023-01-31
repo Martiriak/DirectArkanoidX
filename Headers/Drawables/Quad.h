@@ -7,6 +7,9 @@
 #include "Color.h"
 
 
+/**
+ * Base class for axis aligned rectangular objects.
+ */
 class Quad : public DrawableStatics<Quad>
 {
 public:

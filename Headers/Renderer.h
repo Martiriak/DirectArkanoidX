@@ -8,6 +8,14 @@
 #include <wrl.h>
 
 
+/**
+ * Main access point to DirectX 11 objects and functions. It renders onto a H_WND, which is usually provided by a Window class.
+ * 
+ * Provides a method to draw whatever was set on the device context, using the indices method, and a method to do the presentation and switch buffers.
+ * It hides all the DirectX device and device context initializations.
+ * 
+ * @see Window
+ */
 class Renderer
 {
 	friend class IBindable;

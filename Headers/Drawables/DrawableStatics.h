@@ -8,6 +8,12 @@
 #include <typeinfo>
 
 
+/**
+ * Template class which provides a series of methods to preserve a static vector of IBindables, that are thus shared between all
+ * the derived instances.
+ * 
+ * It is meant as a way to reduce boilerplate code and for reduce the use of GPU memory, by sharing common resources.
+ */
 template <typename DrawableSubclass>
 class DrawableStatics : public Drawable
 {

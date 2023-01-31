@@ -1,6 +1,8 @@
 // Alessandro Pegoraro - Graphics Programming
 // This file was taken and modified from the Chili Direct3D Engine. <http://www.planetchili.net>	
 
+// This NEEDS to be included BEFORE and SUBSTITUTES Windows.h! It shuts down namespace pollution done by the Windows header.
+
 #pragma once
 
 // target Windows 7 or later

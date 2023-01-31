@@ -7,6 +7,11 @@
 #include "Drawables/DestructibleBlock.h"
 
 
+/**
+ * Provides infos relative to the DestructibleBlock grid.
+ * 
+ * @see Drawables/DestructibleBlock
+ */
 namespace Grid
 {
 	constexpr int dim_X = 10;

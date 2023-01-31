@@ -13,6 +13,16 @@
 #include "Grid.h"
 
 
+/**
+ * Handles the game loop and logic.
+ * 
+ * It is responsible for the initialization and destruction of game resources: the grid of DestructibleBlock, the Ball and the Paddle.
+ * It delegates to the CollisionHandler component the collision detections.
+ * 
+ * Each Application will have its own separate window, represented by the Window component.
+ * 
+ * @see Drawables/DestructibleBlock, Drawables/Paddle, Drawables/Ball, CollisionHandler, Grid
+ */
 class Application
 {
 public:
@@ -32,6 +42,7 @@ private:
 	std::unique_ptr<Paddle> _paddle;
 	std::unique_ptr<CollisionHandler> _collision_handler;
 
+	// If the game is not running, the ball remains stationary and the game does not take any input.
 	bool _is_game_running = false;
 
 

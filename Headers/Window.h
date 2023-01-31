@@ -10,6 +10,10 @@
 #include "Renderer.h"
 
 
+/**
+ * Abstracts the Win32 API Window instantiation and provides the H_WND to its subcomponents Renderer and Keyboard, acting as a common interface
+ * for everything concerning a window.
+ */
 class Window
 {
 //// INNER CLASSES ////

@@ -5,6 +5,9 @@
 #include "Drawables/Quad.h"
 
 
+/**
+ * Represents a single block which can be destroyed by the Ball.
+ */
 class DestructibleBlock : public Quad
 {
 public:

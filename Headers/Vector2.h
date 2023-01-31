@@ -4,6 +4,9 @@
 #include <functional>
 
 
+/**
+ * 2D lightweight class, it wraps 2 floats and provides manipulation functions for them.
+ */
 struct Vector2 final
 {
 	float x, y;
@@ -99,7 +102,7 @@ inline float operator* (const Vector2& right_side, const Vector2& left_side)
 
 
 
-
+// Needed in order to be used as a key in a std::unordered_map.
 namespace std
 {
 	template<>

@@ -7,6 +7,9 @@
 #include "Color.h"
 
 
+/**
+ * Represents the sphere which gets bounced around and that destroys the blocks in the grid.
+ */
 class Ball : public DrawableStatics<Ball>
 {
 public:

@@ -5,8 +5,15 @@
 #include <bitset>
 
 
+/**
+ * Provides an easy querying system for user input using a bitset, simplifying Win32 input handling.
+ * 
+ * Each time a key is pressed, a corresponding bit is set to true and each time it is release, the bit is set to false.
+ * Each key has a unique bit, accessible through its ASCII code.
+ */
 class Keyboard final
 {
+	// Only Window can access its private methods and thus set the bits.
 	friend class Window;
 
 public:

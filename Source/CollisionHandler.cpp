@@ -6,6 +6,9 @@
 
 namespace
 {
+	/**
+	 * Checks if a Ball and a Quad are colliding with each other, writing on quad_normal_hit what face (normal) of the quad was collided.
+	 */
 	bool areIntersecting(const Ball& ball, const Quad& quad, Vector2& quad_normal_hit)
 	{
 		const float squared_radius = ball.getRadius() * ball.getRadius();
@@ -53,12 +56,6 @@ namespace
 		Vector2 dummy_vector{};
 		return areIntersecting(ball, quad, dummy_vector);
 	}
-
-	inline bool isOutOfBounds(const Vector2& grid_pos)
-	{
-		return grid_pos.x < 0 || grid_pos.x > Grid::dim_X - 1
-			|| grid_pos.y < 0 || grid_pos.y > Grid::dim_Y - 1;
-	}
 }
 
 
@@ -101,6 +98,7 @@ GameProgress CollisionHandler::checkForCollisions()
 				}
 			}
 
+		// Border checks for the Ball, and position correction.
 		if (_ball->position.x > 1.f)
 		{
 			_ball->position.x = 1.f - _ball->getRadius();
@@ -117,9 +115,11 @@ GameProgress CollisionHandler::checkForCollisions()
 			_ball->handleCollision(-Vector2::up());
 		}
 
+		// Below the screen space, Game Over!
 		if (_ball->position.y < -1.f) return GameProgress::Lost;
 	}
 
+	// Border checks for the Paddle, and position correction.
 	if (_paddle->position.x - (_paddle->getWidth() * 0.5f) < -1.f)
 	{
 		_paddle->position.x = -1.f + (_paddle->getWidth() * 0.5f);

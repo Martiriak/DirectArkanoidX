@@ -8,6 +8,8 @@
 Application::Application(int window_width, int window_height, LPCSTR window_name)
 	: window(window_width, window_height, window_name)
 {
+	// Grid, Ball and Paddle initialization.
+
 	for (int x = 0; x < _blocks_grid.size(); ++x)
 		for (int y = 0; y < _blocks_grid[x].size(); ++y)
 		{
@@ -27,6 +29,7 @@ Application::Application(int window_width, int window_height, LPCSTR window_name
 
 	_collision_handler = std::make_unique<CollisionHandler>(_blocks_grid, *_ball, *_paddle);
 
+	// For safety.
 	_ball->velocity = Vector2::zero();
 	_paddle->velocity = Vector2::zero();
 }
@@ -44,12 +47,15 @@ void Application::processFrame(double time_since_start, float delta_time)
 
 	if (_is_game_running)
 	{
+		// Paddle movement.
+
 		if (window.keyboard.isKeyPressed('A'))
 			_paddle->velocity = -Vector2::right() * _paddle_speed;
 		else if (window.keyboard.isKeyPressed('D'))
 			_paddle->velocity = Vector2::right() * _paddle_speed;
 		else
 			_paddle->velocity = Vector2::zero();
+
 
 		GameProgress progress = _collision_handler->checkForCollisions();
 
@@ -92,8 +98,10 @@ void Application::processFrame(double time_since_start, float delta_time)
 	window.getRenderer().present();
 }
 
+
 void Application::resetGame()
 {
+	// Rebuilds blocks if they have been destroyed.
 	for (int x = 0; x < _blocks_grid.size(); ++x)
 		for (int y = 0; y < _blocks_grid[x].size(); ++y)
 		{

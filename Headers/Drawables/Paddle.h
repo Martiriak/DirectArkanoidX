@@ -5,6 +5,9 @@
 #include "Drawables/Quad.h"
 
 
+/**
+ * Represents the paddle that the player can move at the bottom of the screen.
+ */
 class Paddle : public Quad
 {
 public:

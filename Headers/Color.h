@@ -5,6 +5,11 @@
 
 using byte = unsigned char;
 
+/**
+ * Simple struct representing a color.
+ * 
+ * For space optimization reasons, it uses a single byte for each channel, instead of a float.
+ */
 struct Color
 {
 	byte r, g, b, a;

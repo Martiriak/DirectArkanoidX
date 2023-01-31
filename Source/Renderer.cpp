@@ -99,6 +99,7 @@ Renderer::Renderer(HWND h_window)
 
 	THROW_IF_FAILED(_device->CreateDepthStencilView(depth_texture.Get(), &depth_view_descriptor, &_depth_view));
 
+	// Set render targets and viewport.
 	_device_context->OMSetRenderTargets(1u, _render_target_view.GetAddressOf(), _depth_view.Get());
 
 	D3D11_VIEWPORT viewport = { };
