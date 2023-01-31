@@ -19,8 +19,11 @@ struct Color
 	static inline Color gray() { return { 128, 128, 128, 255 }; }
 	static inline Color black() { return { 0, 0, 0, 255 }; }
 	static inline Color red() { return { 255, 0, 0, 255 }; }
+	static inline Color darkRed() { return { 128, 0, 0, 255 }; }
 	static inline Color green() { return { 0, 255, 0, 255 }; }
+	static inline Color darkGreen() { return { 0, 128, 0, 255 }; }
 	static inline Color blue() { return { 0, 0, 255, 255 }; }
+	static inline Color darkBlue() { return { 0, 0, 128, 255 }; }
 	static inline Color cyan() { return { 0, 255, 255, 255 }; }
 	static inline Color magenta() { return { 255, 0, 255, 255 }; }
 	static inline Color yellow() { return { 255, 255, 0, 255 }; }

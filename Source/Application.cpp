@@ -10,17 +10,40 @@ Application::Application(int window_width, int window_height, LPCSTR window_name
 {
 	// Grid, Ball and Paddle initialization.
 
+	Color upper_corner_color;
+	Color downer_corner_color;
+
 	for (int x = 0; x < _blocks_grid.size(); ++x)
 		for (int y = 0; y < _blocks_grid[x].size(); ++y)
 		{
+			switch (x % 4)
+			{
+			case 0:
+				upper_corner_color = Color::red();
+				downer_corner_color = Color::darkRed();
+				break;
+			case 1:
+				upper_corner_color = Color::blue();
+				downer_corner_color = Color::darkBlue();
+				break;
+			case 2:
+				upper_corner_color = Color::green();
+				downer_corner_color = Color::darkGreen();
+				break;
+			case 3:
+				upper_corner_color = Color::white();
+				downer_corner_color = Color::gray();
+				break;
+			}
+
 			_blocks_grid[x][y] = std::make_unique<DestructibleBlock>
 			(
 				window.getRenderer(),
 				Grid::base_point + Vector2{ Grid::offset_x * y, -Grid::offset_y * x },
 				Grid::blocks_width,
 				Grid::blocks_height,
-				Color::white(),
-				Color::gray()
+				upper_corner_color,
+				downer_corner_color
 			);
 		}
 
@@ -102,19 +125,43 @@ void Application::processFrame(double time_since_start, float delta_time)
 void Application::resetGame()
 {
 	// Rebuilds blocks if they have been destroyed.
+
+	Color upper_corner_color;
+	Color downer_corner_color;
+
 	for (int x = 0; x < _blocks_grid.size(); ++x)
 		for (int y = 0; y < _blocks_grid[x].size(); ++y)
 		{
 			if (_blocks_grid[x][y] == nullptr)
 			{
+				switch (x % 4)
+				{
+				case 0:
+					upper_corner_color = Color::red();
+					downer_corner_color = Color::darkRed();
+					break;
+				case 1:
+					upper_corner_color = Color::blue();
+					downer_corner_color = Color::darkBlue();
+					break;
+				case 2:
+					upper_corner_color = Color::green();
+					downer_corner_color = Color::darkGreen();
+					break;
+				case 3:
+					upper_corner_color = Color::white();
+					downer_corner_color = Color::gray();
+					break;
+				}
+
 				_blocks_grid[x][y] = std::make_unique<DestructibleBlock>
 				(
 					window.getRenderer(),
 					Grid::base_point + Vector2{ Grid::offset_x * y, -Grid::offset_y * x },
 					Grid::blocks_width,
 					Grid::blocks_height,
-					Color::white(),
-					Color::gray()
+					upper_corner_color,
+					downer_corner_color
 				);
 			}
 		}
