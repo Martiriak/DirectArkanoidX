@@ -41,4 +41,6 @@ This class has 3 tasks:
 - Bound the ball to the borders of the screen, preventing it to go out of view.
 - Issue a `GameProgress::Won` or `GameProgress::Lost` message when appropriate.
 
+# Issues
+- It may happen that the project won't compile if opened with Visual Studio Community 2019 or lower. If that happens, try changing the Platform Toolset in Project Properties -> Configuration Properties -> General.
 
